@@ -1,0 +1,11 @@
+mysql-connector==2.2.9
+HEIC2PNG==1.1.4
+pillow==10.4.0
+aiofiles==23.1.0
+opencv-python==4.10.0.84
+pydantic==2.9.2
+fastapi==0.103.1
+uvicorn==0.23.2
+moviepy==1.0.3
+python-dotenv==1.0.0
+pycryptodome==3.17.0

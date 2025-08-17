@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="text1">Страница с файлами</title>
+    <meta name="description" content=""/>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/assets/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="theme-color" content="#ffffff">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link href="/assets/toast.min.css" rel="stylesheet">
+    <script src="/assets/toast.min.js"></script>
+
+    <link rel="stylesheet" href="/base.css">
+</head>
+<body>
+
+    <div class="preloader" id="preloader">
+        <svg class="preloader__image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <path fill="currentColor"
+            d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+          </path>
+        </svg>
+      </div>
+
+<div id="pinBg" style="display: none; width: 100%; height: 100%; position: fixed; background: #00000090; top: 0; left: 0; z-index: 9999;">
+    <div class="pin_wrap" style="width: 250px; display: flex; flex-direction: column; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #161616; border: 1px solid #2d2d2d; border-radius: 13px; padding: 10px; position: fixed; z-index: 1000;">
+        <input class="air-register__input" id="pinInput" type="text" autofocus placeholder="Введите пинкод">
+        <script>
+                const pinInput = document.getElementById('pinInput');
+                const pin = pinInput.value;
+
+
+                pinInput.addEventListener('input', function() {
+                    let value = this.value;
+                    value = value.replace(/[^0-9]/g, ''); // Оставляем только цифры
+                    value = value.substring(0, 4);      // Ограничиваем 4 символами
+                    this.value = value;
+                });
+
+                function checkPinCodeInput() {
+                    const pin = pinInput.value;
+
+                    if (pin.length === 4) {
+                        checkPinCode()
+                    } else {
+                        new Toast({
+                            title: false,
+                            text: `${lang_id == 1 ? 'Пинкод должен содержать 4 цифры' : 'The pin code must contain 4 numbers'}`,
+                            theme: 'light',
+                            autohide: true,
+                            interval: 5000
+                        });
+                    }
+                }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                document.getElementById('checkPinBtn').click();
+            }
+        });
+
+        </script>
+        <button onclick="checkPinCodeInput()" id="checkPinBtn" style="margin-top: 10px;">
+            <div class="air-register__input">Отправить</div>
+            <svg class="pin_btn_loader send_files_loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" width="30" height="30" style="shape-rendering: auto; display: none;">
+                <g data-idx="1">
+                    <circle stroke-dasharray="164.93361431346415 56.97787143782138" r="35" stroke-width="10" stroke="#fff" fill="none" cy="50" cx="50" data-idx="2" transform="matrix(-0.2486897839851339,0.9685831876206749,-0.9685831876206749,-0.2486897839851339,110.86364858029043,14.005329818222954)"></circle>
+                    <g data-idx="4"></g>
+                </g>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    let catalogId = getCookie('upload_link')
+    let lang_id = getCookie("lang_id");
+    //if(!catalogId) {window.location.href = "/"};
+    if(!lang_id) {lang_id = 1};
+
+    const url = new URL(window.location);
+    const pathParts = url.pathname.split('/');
+    const value = pathParts[2];
+    if(value) {catalogId = value};
+
+    
+    function checkPinCode() {
+        // Показываем лоадер и скрываем текст на кнопке
+            $('.pin_btn_loader').show();
+            $('.pin_btn_text').hide();
+
+            const formData = new FormData();
+            formData.append('dirname', catalogId);
+            formData.append('pin', $("#pinInput").val());
+            $('#infoPin').text($("#pinInput").val())
+
+            $.ajax({
+                type: 'POST',
+                url: `/api/v2/check_pin/`,
+                processData: false,
+                contentType: false,
+                data: formData,
+            }).done((response, textStatus, jqXHR) => {
+                console.log("Response:", response);
+                console.log("Status code:", jqXHR.status);  // Проверка статус кода
+                $("#pinInput").val('')
+                delete_link = `${window.origin}/del/${catalogId}`;
+                $.ajax({
+                    url: `/api/delete_dir?id=${catalogId}`,
+                    type: 'get', // Указываем метод DELETE
+                    success: function(response) { // Обработка успешного ответа
+                        window.location.href = "/";
+                    },
+                    error: function(error) { // Обработка ошибки
+                        new Toast({
+                            title: false,
+                            text: `${lang_id == 1 ? `Ошибка ${error}` : `Error ${error}`}`,
+                            theme: 'light',
+                            autohide: true,
+                            interval: 5000
+                        });
+                    }
+                });
+
+            })
+            .fail((jqXHR, response, textStatus, errorThrown) => {
+                console.log("Error:", errorThrown);
+                console.log("Status code:", jqXHR.status);  // Проверка статус кода
+                    new Toast({
+                        title: false,
+                        text: `${lang_id == 1 ? 'Пин-код неправильный' : 'The pin code is incorrect'}`,
+                        theme: 'light',
+                        autohide: true,
+                        interval: 5000
+                    });
+            })
+            .always(() => {
+                // Возвращаем к исходному состоянию после получения ответа
+                $('.pin_btn_loader').hide();
+                $('.pin_btn_text').show();
+            });
+    }
+
+
+    (function checkSessionPincode(){
+        let autoPin = getCookie(window.location.pathname.slice(3));
+        if(autoPin){
+
+            const formData = new FormData();
+            formData.append('dirname', window.location.pathname.slice(3));
+            formData.append('pin', autoPin);
+
+            $.ajax({
+                type: 'POST',
+                url: `/api/v2/check_pin/`,
+                processData: false,
+                contentType: false,
+                data: formData,
+            }).done(() => {
+                $.ajax({
+                    url: `/api/delete_dir?id=${catalogId}`,
+                    type: 'get', // Указываем метод DELETE
+                    success: function(response) { // Обработка успешного ответа
+                        window.location.href = "/";
+                    },
+                    error: function(error) { // Обработка ошибки
+                        new Toast({
+                            title: false,
+                            text: `${lang_id == 1 ? `Ошибка ${error}` : `Error ${error}`}`,
+                            theme: 'light',
+                            autohide: true,
+                            interval: 5000
+                        });
+                    }
+                });
+            })
+            .fail(() => {
+                $('#pinBg').fadeIn()
+            })
+        
+        } else {
+            $('#pinBg').fadeIn()
+        }
+    })()
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="text1">Главная страница</title>
+    <meta name="description" content=""/>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/assets/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="theme-color" content="#ffffff">
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/jq-ajax-progress.min.js"></script>
+
+    <link href="/assets/toast.min.css" rel="stylesheet">
+    <script src="/assets/toast.min.js"></script>
+    <link rel="stylesheet" href="base.css">
+</head>
+<body style="user-select: none;">
+
+<header class="air-header air-header-bh">
+    <div class="wrap df aic jcsb">
+        <div class="air-header__exif">
+            Exif is cleaned
+        </div>
+
+        <div class="air-header__title" style="user-select: none;">
+            <a class="air-header__title-link switch_logo" title="localhost" href="/">
+                <img src="/assets/img/logo.svg" alt="">
+                <img src="/assets/img/logo2.svg" alt="">
+            </a>
+        </div>
+        <div></div>
+
+        <div class="df aic">
+            <nav class="air-header__nav ml10_ df">
+                <a id="lang1" href="/?lang=ru" class="air-header__link btn" onclick="setLang(1)">Рус</a>
+                <a id="lang2" href="/?lang=en" class="air-header__link btn" onclick="setLang(2)">Eng</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="preloader" id="preloader">
+  <svg class="preloader__image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <path fill="currentColor"
+      d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+    </path>
+  </svg>
+</div>
+
+<section hidden id="main" class="air-file m5h0">
+    <div style="max-width: 90%; width: 800px; margin: 0 auto;" class="wrap">
+        <h1 id="title" class="tac">.</h1>
+        <h2 id="conditions">.</h2>
+        <p id="description"></p>
+        <p id="report_requirements"></p>
+        <p id="report_description"></p>
+        <p id="report_instruction"></p>
+        <p id="report_screenshot"></p>
+        <p id="report_contacts"></p>
+        <p id="reward"></p>
+        <p id="problems_list"></p>
+        <p id="phishing"></p>
+        <p id="token_capture"></p>
+        <p id="irrelevant_reports"></p>
+        <p id="physical_access"></p>
+        <p id="missing_flags"></p>
+        <p id="root_access"></p>
+        <p id="clickjacking"></p>
+        <p id="outdated_software"></p>
+        <p id="social_engineering"></p>
+        <p id="version_info"></p>
+        <p id="dos_attack"></p>
+
+        <form style="display: flex; flex-direction: column;">
+            <input id="title_input" style="margin: 20px 0;" placeholder="" name="bug_theme" type="text" class="air-register__input">
+            <textarea id="description_input" style="resize: none;" placeholder="" name="bug_comment" cols="30" rows="10" class="air-register__input"></textarea>
+            <div style="margin: 20px 0; margin-left: 5px; text-align: left;">
+                <label id="attach_screenshot" style="cursor: pointer;" for="File">Прикрепить скрин</label>
+                <input style="display: none;" id="File" type="file">
+            </div>
+            <input id="send" style="max-width: 100%; width: 300px; margin-right: auto; cursor: pointer;" placeholder="Заголовок" value="Отправить" name="bug_theme" type="button" class="air-register__input">
+        </form>
+    </div>
+</section>
+
+
+<script src="assets/js/custom.js"></script>
+<script type="text/javascript">
+    var lastNow = new Date().getTime();
+    var lang;
+    const exifElement = $('.air-header__exif');
+
+    const stringService = {
+        replaceLast: (string, substring, newSubstring) => {
+            const startIndex = string.lastIndexOf(substring);
+            const endIndex = startIndex + substring.length;
+            const result =
+                string.slice(0, startIndex) +
+                newSubstring +
+                string.slice(endIndex, string.length);
+
+            return result;
+        },
+    };
+
+
+    function isRus() {
+        return lang == 1;
+    }
+
+    function setLang(lang_id) {
+  setCookie("lang_id", lang_id);
+  lang = lang_id;
+
+  if (lang === 1) { // Русский
+    $('#lang1').addClass("active");
+    $('#lang2').removeClass("active");
+
+    $('#title').text("Охота на баги");
+    $('#conditions').text("Условия");
+    $('#description').text("Программа вознаграждения за обнаружение ошибок в сервисе dvdblack. Программа рассчитана на поиск уязвимостей или проблем, связанных с безопасностью. Используя форму обратной связи, вы можете отправить отчет о найденной вами проблеме, и получить за это вознаграждение, при условии, что обнаруженная проблема соответствует обозначенным в данном тексте условиям, а сам отчет - позволяет эту проблему воспроизвести.");
+    $('#report_requirements').text("Требование к отчету:");
+    $('#report_description').text("1) Подробное описание найденной вами ошибки, и предполагаемые последствия, к которым может привести её эксплуатация");
+    $('#report_instruction').text("2) Инструкция, опираясь на которую наши разработчики смогут воспроизвести возникновение описанной вами проблемы");
+    $('#report_screenshot').text("3) Если это возможно - скриншот возникшей ошибки");
+    $('#report_contacts').text("4) Ваши контакты, через которые можно связаться с вами для обсуждения выплаты вознаграждения");
+    $('#reward').text("Все отчеты, отправленные в соответствии с правилами и попадающие под действие программы вознаграждения, изложенном в данном описании, которые приводят к изменению кода или конфигурации, а также нарушают работоспособность сервиса, и которые признаны разработчиками значимыми, имеют право на вознаграждение в размере от 100 до 10000 долларов США(в криптовалюте) или более, в зависимости от серьезности проблемы. Отчеты должны быть сосредоточены на серьезности и влиянии уязвимости, связанных с безопасностью.");
+    $('#problems_list').text("Ниже приведен неполный список проблем, которые, как правило, не соответствуют требованиям нашей программы:");
+    $('#phishing').text("1. Фишинговые атаки, спам");
+    $('#token_capture').text("2. Перехват токена или сеанса в результате внешнего вредоносного ПО на ОС");
+    $('#irrelevant_reports').text("3. Нерелевантные отчеты от сканеров или автоматизированных инструментов");
+    $('#physical_access').text("4. Атаки, требующие физического доступа к устройству пользователя");
+    $('#missing_flags').text("5. Отсутствующие флаги cookie (HttpOnly, Secure и т. д.)");
+    $('#root_access').text("6. Атаки, требующие root-доступа к устройству пользователя");
+    $('#clickjacking').text("7. Clickjacking");
+    $('#outdated_software').text("8. Невоспроизводимые уязвимости, возникающие из-за устаревших или, как сообщается, некорректных версий программного обеспечения с открытым исходным кодом");
+    $('#social_engineering').text("9. Уязвимости, которые полагаются на социальную инженерию для получения конфиденциальных учетных данных или для того, чтобы пользователь выполнил маловероятную последовательность действий");
+    $('#version_info').text("10. Наличие баннера или информации о версии, передовые практики SSL/TLS и т. д.");
+    $('#dos_attack').text("11. Атаки отказа в обслуживании, в следствии перегрузки сервера, обслуживающего сервис");
+    $('#title_input').attr("placeholder", "Заголовок");
+    $('#description_input').attr("placeholder", "Где и что не так?");
+    $('#attach_screenshot').text("Прикрепить скрин");
+    $('#send').val("Отправить");
+
+  } else if (lang === 2) { // Английский
+    $('#lang1').removeClass("active");
+    $('#lang2').addClass("active");
+
+    $('#title').text("Bug Bounty");
+    $('#conditions').text("Conditions");
+    $('#description').text("Bug bounty program for finding vulnerabilities in dvdblack service. The program is designed to search for vulnerabilities or security-related problems. Using the feedback form, you can submit a report about a problem you found and receive a reward, provided that the discovered problem meets the conditions specified in this text, and the report itself allows this problem to be reproduced.");
+    $('#report_requirements').text("Report requirements:");
+    $('#report_description').text("1) A detailed description of the error you found, and the potential consequences that its exploitation may lead to");
+    $('#report_instruction').text("2) Instructions, based on which our developers will be able to reproduce the occurrence of the problem you described");
+    $('#report_screenshot').text("3) If possible - a screenshot of the error");
+    $('#report_contacts').text("4) Your contacts, through which you can contact us to discuss the payment of the reward");
+    $('#reward').text("All reports sent in accordance with the rules and falling under the reward program, described in this description, which lead to changes in the code or configuration, as well as disrupt the service, and which are recognized by the developers as significant, are entitled to a reward of between 100 and 10,000 US dollars (in cryptocurrency) or more, depending on the severity of the problem. Reports should focus on the severity and impact of security-related vulnerabilities.");
+    $('#problems_list').text("The following is a non-exhaustive list of problems that typically do not meet the requirements of our program:");
+    $('#phishing').text("1. Phishing attacks, spam");
+    $('#token_capture').text("2. Token or session hijacking as a result of external malware on the OS");
+    $('#irrelevant_reports').text("3. Irrelevant reports from scanners or automated tools");
+    $('#physical_access').text("4. Attacks requiring physical access to the user's device");
+    $('#missing_flags').text("5. Missing cookie flags (HttpOnly, Secure, etc.)");
+    $('#root_access').text("6. Attacks requiring root access to the user's device");
+    $('#clickjacking').text("7. Clickjacking");
+    $('#outdated_software').text("8. Non-reproducible vulnerabilities arising from outdated or reportedly incorrect versions of open source software");
+    $('#social_engineering').text("9. Vulnerabilities that rely on social engineering to obtain sensitive credentials or to cause a user to perform an unlikely sequence of actions");
+    $('#version_info').text("10. Presence of a banner or version information, SSL/TLS best practices, etc.");
+    $('#dos_attack').text("11. Denial-of-service attacks due to server overload serving the service");
+    $('#title_input').attr("placeholder", "Title");
+    $('#description_input').attr("placeholder", "What and where is wrong?");
+    $('#attach_screenshot').text("Attach screenshot");
+    $('#send').val("Send");
+  }
+}
+
+    function setCookie(name,value,days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    }
+
+
+    $('#add-button').click(function(e){
+        $('#upload_button').trigger("click");
+    });
+
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+    $(document).ready(() => {
+        var lang_id = getCookie("lang_id");
+        if (lang_id == null) lang_id = 1;
+        lang_id = parseInt(lang_id);
+        if ([1,2].includes(lang_id)) setLang(lang_id);
+
+        let params = new URLSearchParams(document.location.search);
+
+        $('#preloader').attr("hidden", "");
+        document.getElementById('main').removeAttribute("hidden");
+    });
+
+
+</script>
+<p class="air-section__description" id="text12">2025 (с) dvdBlack team</p>
+</body>
+</html>
+

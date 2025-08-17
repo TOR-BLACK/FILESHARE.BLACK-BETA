@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="text1">Страница с файлами</title>
+    <meta name="description" content=""/>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/assets/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="theme-color" content="#ffffff">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="/assets/js/jq-ajax-progress.min.js"></script>
+    <link rel="stylesheet" href="/assets/hystmodal.min.css">
+    <script src="/assets/hystmodal.min.js"></script>
+    <link href="/assets/toast.min.css" rel="stylesheet">
+    <script src="/assets/toast.min.js"></script>
+
+    <link rel='stylesheet' id='glide-css' href='assets/css/glide.core.min.css' media='all'/>
+    <link rel='stylesheet' id='glide-theme' href='assets/css/glide.theme.min.css' media='all'/>
+    <link rel="stylesheet" href="/base.css">
+    <link rel="stylesheet" href="/catalog.css">
+</head>
+<body>
+
+<header>
+    <div class="wrap df aic jcsb">
+
+        <div class="air-header__title" style="user-select: none;">
+            <a class="air-header__title-link switch_logo" title="localhost" href="/">
+                <img src="/assets/img/logo.svg" alt="">
+                <img src="/assets/img/logo2.svg" alt="">
+            </a>
+        </div>
+
+        <div>
+        </div>
+
+        <div class="df aic">   
+            <a class="mr24 mb-mr12 mb-ml12 tac wa" href="https://localhost/bug-bounty-hunting">Bug Bounty Hunting</a>
+            <nav class="air-header__nav ml10_ df">
+                <a id="lang1" href="/?lang=ru" class="air-header__link btn" onclick="setLang(1)">Рус</a>
+                <a id="lang2" href="/?lang=en" class="air-header__link btn" onclick="setLang(2)">Eng</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="preloader" id="preloader">
+  <svg class="preloader__image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <path fill="currentColor"
+      d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+    </path>
+  </svg>
+</div>
+
+<section class="title">
+    <div class="wrap df jcsb aic fww">
+        <h1 id="loadManagement" class="mb-mb24">Управление загрузками</h1>
+        <div class="main_info dif aic ml5_33 fww ml5_ mb-w100p">
+            <p><span id="uploadDate">Дата загрузки</span>: <span id="dnld_date" class="cw">01.01.2025</span></p>
+            <span class="cw"> / </span>
+            <p><span id="deletionDate">Дата удаления</span>: <span id="expr_date" class="cw">24.01.2025</span></p>
+            <span class="cw"> / </span>
+            <p class="dif aic"><span id="infoPinName">Пинкод</span>: <span id="infoPin" class="db cw">- - - -</span></p>
+        </div>
+    </div>
+</section>
+
+<section hidden id="main">
+    <section id="header_main">
+        <div class="wrap df jcsb pb12 fww mb-w48p_">
+            <a id="download_button" class="btn btn_lrg mb12 mb-o0" title="Скачать все" >
+                <img width="20" height="20" src="/assets/img/_downloadZip.svg" alt="">
+                <span id="text3">Скачать в архиве</span>
+            </a>
+            <div id="expireExtendNav" class="option_list_wrap mb-o1 _mb-w100p">
+                <button class="btn btn_lrg mb12 w100p" onblur="$(this).next('.option_list').fadeOut(300);" title="Продлить хранение" onclick="$(this).next('.option_list').fadeToggle(300);">
+                    <img width="16" height="16" src="/assets/img/_timer.svg" alt="">
+                    <span id="extStrg">Продлить хранение</span>
+                    <img width="16" height="16" src="/assets/img/_list_arrow.svg" alt="">
+                </button>
+                <div class="option_list" style="display: none;" style="z-index: 1050;">
+                    <div id="expireExtend_1" onclick="expireExtend(0.1)" class="option"><img class="mr10" width="16" height="16" src="/assets/img/_timer.svg" alt=""><span id="add3days">Добавить 3 дня</span></div>
+                    <div id="expireExtend_25" onclick="expireExtend(0.25)" class="option"><img class="mr10" width="16" height="16" src="/assets/img/_timer.svg" alt=""><span id="addWeek">Добавить неделю</span></div>
+                    <div id="expireExtend1" onclick="expireExtend(1)" class="option"><img class="mr10" width="16" height="16" src="/assets/img/_timer.svg" alt=""><span id="addMonth">Добавить месяц</span></div>
+                </div>
+            </div>
+
+            <button id="showPinOption" title="Добавить пинкод" onclick="updatePin()" class="btn btn_lrg mb12">
+                <img width="16" height="16" src="/assets/img/_pincode.svg" alt="">
+                <span id="changePinText">Добавить пинкод</span>
+            </button>
+            <script>
+                function updatePin(){
+                    let isPinChanging = createdPin ? true : false
+                    createdPin = Math.floor(1000 + Math.random() * 9000)
+                    const formData = new FormData();
+                    formData.append('dirname', directoryId);
+                    formData.append('pin', createdPin);
+                    document.getElementById('showPinOption').disabled = true
+                    $.ajax({
+                      url: `/api/v2/update_pin`,
+                      method: 'POST',
+                      data: formData,
+                      processData: false,
+                      contentType: false,
+                      success: function(r) {
+                        $('#changePinText').text(isRus() ? 'Изменить пинкод' : 'Change pincode');
+                        $('#infoPin').text(createdPin);
+                        console.log('Пин успешно обновлен:', r);
+                        new Toast({
+                            title: false,
+                            text: isPinChanging ? (lang== 1 ? 'Пинкод успешно изменен!':'Pincode changed successfully!') : (lang == 1 ? 'Пинкод успешно добавлен!':'Pincode added successfully!'),
+                            theme: 'secondary',
+                            autohide: true,
+                            interval: 5000
+                        });
+                        $('#infoPin, #infoPinName').addClass('highlight'); // Добавляем класс подсветки
+                        setTimeout(function() {
+                            $('#infoPin, #infoPinName').removeClass('highlight'); // Убираем класс подсветки через секунду (или другое время)
+                        }, 300); 
+                        $('#showPinOption').removeAttr('disabled');
+                      },
+                      error: function(xhr, status, error) {
+                        alert(isRus() ? "Ошибка изменения пина!" : "Error changing pin!");
+                        console.error('Ошибка изменения пина:', error);
+                        new Toast({
+                            title: false,
+                            text: isPinChanging ? (lang== 1 ? 'Пинкод измененить не удалось!':'Pincode changed failed!') : (lang == 1 ? 'Пинкод добавить не удалось!':'Pincode added failed!'),
+                            theme: 'secondary',
+                            autohide: true,
+                            interval: 5000
+                        });
+                        $('#showPinOption').removeAttr('disabled');
+                      }
+                    });
+                }
+            </script>
+
+            <label title="Добавить файл" class="btn btn_lrg mb12 mb-o2">
+                <img width="16" height="16" src="/assets/img/_plus.svg" alt="">
+                <input type="file" id="file_upload" multiple hidden style="display: none;" disabled/>
+                <span id="addFileText">Добавить файл</span>
+            </label>
+            <button title="Удалить" id="delete" class="btn btn_lrg mb12 mb-o2" onclick="deleteDir()" style="visibility: hidden;">
+                <img width="16" height="16" src="/assets/img/_crest.svg" alt="">
+                <span id="text6">Удалить файлы</span>
+            </button>
+        </div>
+    </section>
+
+
+    <section class="air-section air-section__archive wrap">
+            <div class="files_list_header">
+                <div id="tableHrFileName">Название</div>
+                <div id="tableHrFileSize" class="mb-dn">Размер</div>
+                <div id="tableHrFileFormat" class="mb-dn">Формат</div>
+                <div id="tableHrFileDownload" class="mb-dn">Загрузка</div>
+                <div id="tableHrFileControls">Управление</div>
+            </div>
+        <div id="files_section" class="files_list">
+            
+        </div>
+
+        <div id="loaderWrap"></div>
+
+        <div id="descr" style="display: none;">
+            <div id="descrName">Комменатрий:</div>
+            <div id="descrText" class="cw" style="white-space: pre-wrap; overflow-wrap: break-word;"></div>
+        </div>
+
+    </section>
+</section>
+
+<div class="hystmodal" id="myModal" aria-hidden="true">
+    <div class="hystmodal__wrap">
+        <div class="hystmodal__window" role="dialog" aria-modal="true">
+            <button data-hystclose style="top: -6px; right: -20%; z-index: 750;" class="pf btn_crcl cls_btn" onclick="()=>{choosenCard=null}">
+                <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.625 4L4.625 12M4.625 4L12.625 12" stroke="white" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="container" style="width: 100%; height: 100%;">
+                <div class="air-cart">
+
+                    <div class="air-cart__left" style="display: flex;">
+                        <div class="air-cart__container">
+                            <div class="air-video-container">
+                                <div class="air-video-container-nav" id="prevCard" style="position: absolute; top: 0; right: 100%; height: 100%; width: 20%; display: flex; align-items: center; justify-content: center; background-color: #2d2d2d; cursor: pointer;">
+                                    <img width="80" height="80" src="/assets/img/arrow-prev.svg" alt="">
+                                </div>
+                                <div hidden id="modal_video">
+                                    <video class="w100p mh90h" id="modal-video" controls muted class="air-video-player">
+                                    </video>
+                                </div>
+                                <div hidden id="modal_photo" class="df">
+                                    <img class="w100p mh90h" id="modal-photo" alt="image">
+                                </div>
+                                <div class="air-video-container-nav" id="nextCard" style="position: absolute; top: 0; left: 100%; height: 100%; width: 20%; display: flex; align-items: center; justify-content: center; background-color: #2d2d2d; cursor: pointer;">
+                                    <img width="80" height="80" src="/assets/img/arrow-next.svg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<p class="air-section__description" id="text5">
+    2025 (с) dvdBlack team
+</p>
+
+<div id="pinBg" style="display: none; width: 100%; height: 100%; position: fixed; background: #00000090; top: 0; left: 0; z-index: 9999;">
+    <div class="pin_wrap" style="width: 250px; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #161616; border: 1px solid #2d2d2d; border-radius: 13px; position: fixed; z-index: 1000;">
+        <div class="pr df fdc" style="padding: 10px;">
+        <button id="clsBtnPinWindow" class="btn_crcl cls_btn pf dn" style="top: 0; right: 0; transform: translate(100%, -100%);" onclick="$('#pinBg').fadeOut()">
+            <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.625 4L4.625 12M4.625 4L12.625 12" stroke="white" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <input class="air-register__input" id="pinInput" type="text" autofocus placeholder="Введите пинкод">
+        <script>
+                const pinInput = document.getElementById('pinInput');
+                const pin = pinInput.value;
+
+
+                pinInput.addEventListener('input', function() {
+                    let value = this.value;
+                    value = value.replace(/[^0-9]/g, ''); // Оставляем только цифры
+                    value = value.substring(0, 4);      // Ограничиваем 4 символами
+                    this.value = value;
+                });
+
+                function checkPinCodeInput() {
+                    const pin = pinInput.value;
+
+                    if (pin.length === 4) {
+                        checkPinCode()
+                    } else {
+                        new Toast({
+                            title: false,
+                            text: `${lang == 1 ? 'Пинкод должен содержать 4 цифры' : 'The pin code must contain 4 numbers'}`,
+                            theme: 'light',
+                            autohide: true,
+                            interval: 5000
+                        });
+                    }
+                }
+
+        </script>
+        <button onclick="checkPinCodeInput()" id="checkPinBtn" style="margin-top: 10px;">
+            <div class="air-register__input">Отправить</div>
+            <svg class="pin_btn_loader send_files_loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" width="30" height="30" style="shape-rendering: auto; display: none;">
+                <g data-idx="1">
+                    <circle stroke-dasharray="164.93361431346415 56.97787143782138" r="35" stroke-width="10" stroke="#fff" fill="none" cy="50" cx="50" data-idx="2" transform="matrix(-0.2486897839851339,0.9685831876206749,-0.9685831876206749,-0.2486897839851339,110.86364858029043,14.005329818222954)"></circle>
+                    <g data-idx="4"></g>
+                </g>
+            </svg>
+        </button>
+        </div>
+    </div>
+</div>
+
+<div class="air-section" style="background-color: #161616; display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 10000;" id="deletePopup">
+    <h2>Вы точно хотите удалить загруженные файлы?</h2>
+    <div style="display: flex; width: 100%; justify-content: center;">
+        <input onClick="deleteDir()" style="width: 300px; margin: 20px; cursor: pointer;" value="Удалить" type="button" class="air-register__input" id="deletePopupDeleteBtn">
+        <input onClick="$('#deletePopup').fadeOut(500)" style="width: 300px; margin: 20px; cursor: pointer;" value="Отмена" type="button" class="air-register__input" id="deletePopupCancelBtn">
+    </div>
+</div>
+
+<div id="prepareFilesDeleteBg" style="width: 100%; height: 100%; position: fixed; background: #161616; top: 0; left: 0; z-index: 999; display: none;">
+    <style>
+        /* Контейнер для круга и цифры */
+        #countdownContainer {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+        }
+    
+        /* Стили для цифры внутри круга */
+        #countdown {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Анимация для окружности */
+        @keyframes countdownAnimation {
+            from {
+                stroke-dashoffset: 0; /* Конечное значение (окружность полностью усечена) */
+            }
+            to {
+                stroke-dashoffset: 283; /* Начальное значение (полная окружность) */
+            }
+        }
+
+        #progressCircle {
+            animation: countdownAnimation 5s linear forwards;
+        }
+    </style>
+    <div class="prepare_files_delete" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1001; display: flex; flex-direction: column; align-items: center;">
+            <p id="prepareFilesDeleteComment" style="font-size: 24px; margin-bottom: 20px;">Файлы удалены.</p>
+            <div id="countdownContainer">
+                <svg id="countdownCircle" width="100" height="100" viewBox="0 0 100 100">
+                    <circle id="progressCircle" cx="50" cy="50" r="45" stroke="#737373" stroke-width="1" fill="transparent"
+                            stroke-dasharray="283" stroke-dashoffset="283" />
+                </svg>
+                <span id="countdown">5</span>
+            </div>
+        </div>
+    </div>
+<script src="/assets/js/custom.js"></script>
+<script src="/assets/js/glide.min.js"></script>
+<script type="text/javascript">
+    const isTestEnvironment = window.location.href.includes('-test');
+    const currentDomainWithProtocol = window.location.protocol + '//' + window.location.host;
+    const BYTES_IN_MB = 1048576;
+    const FILE_SEQUENCE_NUMBER_REGEX = /\([0-9]+\)/g;
+    var lastNow = new Date().getTime();
+    var lastKBytes = 0;
+    var files_count = 0;
+    let fileOriginsNames = [];
+    var fileNames = [];
+    var expires_text;
+    var expires_in_global;
+    var lang;
+    var noteText = '';
+    var descriptionText = '';
+    let expr_date;
+    let unix_expr_date;
+    let file_to_delete;
+    let file_to_delete_id;
+    let createdPin;
+    let created_date;
+    let unix_created_date;
+    let directoryId = window.location.href.split("/");
+    directoryId = directoryId[directoryId.length - 1]
+    const MAX_UPLOAD_ATTEMPTS = 7 * 24 * 60 * 60
+    /* Chunks state */
+    const isChunked = true;
+    let choosenCard = 0;
+    let $files_list_items;
+    let $currentCard;
+    let chunksLoadedSize = 0;
+    let answer
+    let chunksState = {
+        // EXAMPLE
+        // 'filename.zip': {
+        //     chunks: [],
+        //     uploadedChunks: 0,
+        //     total: 3,
+        //     retries: 5,
+        //     totalSize: 1024, in bytes
+        //     loadedSize: 0, in bytes
+        //     nextFilename?: 'icon.svg',
+        // }
+    }
+
+    
+    document.getElementById('file_upload').addEventListener('click', function () {
+        this.value = '';
+    });
+    $('#file_upload').change(function (e) {
+        upload(e.target.files);
+    })
+    
+    /* Chunks state ends */
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' && $('#pinBg').is(':visible')) {
+            document.getElementById('checkPinBtn').click();
+        }
+    });
+        
+    function updateLinkHref() {
+        const link = document.querySelector('.air-section__description');
+
+        const currentOrigin = window.location.origin;
+
+        if (currentOrigin === 'https://localhost') {
+            link.href = 'https://localhost/bug-bounty-hunting';
+        } else if (currentOrigin === 'localhost') {
+            link.href = 'https://localhost/bug-bounty-hunting';
+        }
+    }
+    window.addEventListener('load', updateLinkHref);
+
+    let indices = []; // Массив для хранения индексов
+
+
+    function showCard(index) {
+        if ($currentCard) {
+            $currentCard.removeClass('active');
+        }
+
+        if (indices.length === 0) return; // Проверяем, есть ли элементы после обновления
+
+        if (index < 0) {
+            index = indices.length - 1;
+        } else if (index >= indices.length) {
+            index = 0;
+        }
+
+        choosenCard = index;
+
+        let $targetFileListItem = $files_list_items.eq(choosenCard);
+
+        if (!$targetFileListItem.length) { // Проверяем, найден ли элемент
+            console.error("Target .files_list_item not found.");
+            return;
+        }
+
+        $currentCard = $targetFileListItem.find('.hist-card').first();
+
+        if ($currentCard.length) { // Проверяем, найден ли .hist-card
+            $currentCard.click()
+        } else {
+            console.error(".hist-card not found in target .files_list_item");
+        }
+
+        // Ваш код для обновления контента или других действий
+    }
+
+    $('#prevCard').click(function() {
+        showCard(indices.indexOf(+choosenCard) - 1);
+    });
+
+    $('#nextCard').click(function() {
+        showCard(indices.indexOf(+choosenCard) + 1);
+    });
+
+
+    function checkPinCode() {
+        // Показываем лоадер и скрываем текст на кнопке
+            $('.pin_btn_loader').show();
+            $('.pin_btn_text').hide();
+
+            const formData = new FormData();
+            formData.append('dirname', window.location.pathname.slice(3));
+            formData.append('pin', $("#pinInput").val());
+            $('#infoPin').text($("#pinInput").val())
+
+            $.ajax({
+                type: 'POST',
+                url: `/api/v2/check_pin/`,
+                processData: false,
+                contentType: false,
+                data: formData,
+            }).done((response, textStatus, jqXHR) => {
+                createdPin = $("#pinInput").val()
+                $('#pinBg').fadeOut();
+                $('#changePinText').text(isRus()?'Изменить пинкод':'Change pincode');
+                if(file_to_delete && file_to_delete_id){
+                    deleteFile(file_to_delete_id, file_to_delete, files_count-1)
+                    file_to_delete = ''
+                    file_to_delete_id = ''
+                }
+                usePin = true
+                getFiles();
+                firstGetFiles = false
+                $("#pinInput").val('')
+            })
+            .fail((jqXHR, response, textStatus, errorThrown) => {
+                if(jqXHR.status == 429){
+                    answer = jqXHR.responseJSON;
+                    const seconds = answer.block_remaining;
+                    const hours = Math.floor(seconds / 3600);
+                    const minutes = Math.floor((seconds % 3600) / 60);
+                    const remainingSeconds = seconds % 60;
+                    new Toast({
+                        title: false,
+                        text: `${lang == 1 ? 'Доступ к управлению файлами временно ограничен, повторите попытку через' : 'Access to file management is temporarily restricted, try again in'} 
+                        ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`,
+                        theme: 'light',
+                        autohide: true,
+                        interval: 10000
+                    });
+                }else{
+                    new Toast({
+                        title: false,
+                        text: `${lang == 1 ? 'Пин-код неправильный' : 'The pin code is incorrect'}`,
+                        theme: 'light',
+                        autohide: true,
+                        interval: 5000
+                    });
+                }
+                $('#infoPin').text('- - - -')
+            })
+            .always(() => {
+                // Возвращаем к исходному состоянию после получения ответа
+                $('.pin_btn_loader').hide();
+                $('.pin_btn_text').show();
+            });
+    }
+
+
+    function deviceDetect() {
+        // Get the user-agent string
+        let userAgentString =
+            navigator.userAgent;
+
+        // Detect Chrome
+        let chromeAgent =
+            userAgentString.indexOf("Chrome") > -1;
+
+        // Detect Internet Explorer
+        let IExplorerAgent =
+            userAgentString.indexOf("MSIE") > -1 ||
+            userAgentString.indexOf("rv:") > -1;
+
+        // Detect Firefox
+        let firefoxAgent =
+            userAgentString.indexOf("Firefox") > -1;
+
+        // Detect Safari
+        let safariAgent =
+            userAgentString.indexOf("Safari") > -1;
+
+        // Discard Safari since it also matches Chrome
+        if ((chromeAgent) && (safariAgent))
+            safariAgent = false;
+
+        // Detect Opera
+        let operaAgent =
+            userAgentString.indexOf("OP") > -1;
+
+        // Discard Chrome since it also matches Opera
+        if ((chromeAgent) && (operaAgent))
+            chromeAgent = false;
+
+        return {
+            isSafari: safariAgent,
+        }
+    }
+
+    const myModal = new HystModal({
+        linkAttributeName: "data-hystmodal",
+        //settings (optional). see Configuration
+    });
+
+    function stopVideo() {
+        let video = $(`modal-video`).get(0);
+        video.pause();
+    }
+
+    function isRus() {
+        return lang == 1;
+    }
+
+    function filesModify(count) {
+        return lang === 1 
+            ? (count === 1 ? "файл" : count > 1 && count < 5 ? "файла" : "файлов")
+            : (count === 1 ? "file" : "files");
+    }
+
+    function setLang(lang_id) {
+        setCookie("lang_id", lang_id);
+        lang = lang_id;
+        expires_text = expires_in_global == "infinity" ? (lang == 1 ? "никогда" : 'never') : expires_in_global;
+        if (lang_id == 1) {
+            $('#lang1').addClass("active mb-dn");
+            $('#lang2').removeClass("active mb-dn");
+            $('#text1').text("Страница с файлами");
+            $('#text2').text("Поделиться");
+            $('#text3').text("Скачать в архиве");
+            $('#text4').text("Информация");
+            $('#text6').text("Удалить");
+            $('#text7').text("просмотров");
+            $('#text8').text("файла");
+            $('#text9').text("Срок хранения неограничен");
+            $('#text10').text("Будет удалено");
+            $('#text11').text("и еще");
+            $('#text12').text(filesModify(lang_id));
+            $('#text_note_label').text("Заметка: ");
+            $('#deletePopupDeleteBtn').val("Удалить");
+            $('#deletePopupCancelBtn').val("Отмена");
+            $('#deletePopup h2').text("Вы точно хотите удалить загруженные файлы");
+            $('#descrName').text(`Комментарий:`)
+            $('#changePinText').text(createdPin?`Изменить пинкод`:`Добавить пинкод`)
+            $('#extStrg').text(`Продлить хранение`)
+            $('#addFileText').text(`Добавить файл`)
+            $('#uploadDate').text(`Дата загрузки`)
+            $('#deletionDate').text(`Дата удаления`)
+            $('#infoPinName').text(`Пинкод`)
+            $('#loadManagement').text(`Управление загрузками`)
+            $('#add3days').text(`Добавить 3 дня`)
+            $('#addWeek').text(`Добавить неделю`)
+            $('#addMonth').text(`Добавить месяц`)
+            $('#addPincodeBtn').attr('value', `Сохранить`)
+            $('.videoSpanTxt').text(`Видео`)
+            $('.photoSpanTxt').text(`Изображение`)
+            $('.docSpanTxt').text(`Документ`)
+            $('#tableHrFileName').text(`Название`)
+            $('#tableHrFileSize').text(`Размер`)
+            $('#tableHrFileFormat').text(`Формат`)
+            $('#tableHrFileDownload').text(`Загрузка`)
+            $('#tableHrFileControls').text(`Управление`)
+        }
+        else if (lang_id == 2) {
+            $('#lang2').addClass("active mb-dn");
+            $('#lang1').removeClass("active mb-dn");
+            $('#text1').text("Files page");
+            $('#text2').text("Share");
+            $('#text3').text("Download all");
+            $('#text4').text("Info");
+            $('#text6').text("Delete");
+            $('#text7').text("views");
+            $('#text8').text("files");
+            $('#text9').text("Shelf life is unlimited");
+            $('#text10').text("Will be deleted");
+            $('#text11').text("and further");
+            $('#text12').text(filesModify(lang_id));
+            $('#text_note_label').text("Note: ");
+            $('#deletePopupDeleteBtn').val("Delete");
+            $('#deletePopupCancelBtn').val("Cancel");
+            $('#deletePopup h2').text("Are you sure you want to delete the downloaded files");
+            $('#descrName').text(`Description:`)
+            $('#changePinText').text(createdPin?`Change pincode`:`Add pincode`)
+            $('#extStrg').text(`Extend storage`)
+            $('#addFileText').text(`Add file`)
+            $('#uploadDate').text(`Upload date`)
+            $('#deletionDate').text(`Deletion Date`)
+            $('#infoPinName').text(`Pincode`)
+            $('#loadManagement').text(`Load management`)
+            $('#add3days').text(`Add 3 days`)
+            $('#addWeek').text(`Add a week`)
+            $('#addMonth').text(`Add a month`)
+            $('#addPincodeBtn').attr('value', `Save`)
+            $('.videoSpanTxt').text(`Video`)
+            $('.photoSpanTxt').text(`Image`)
+            $('.docSpanTxt').text(`Document`)
+            $('#tableHrFileName').text(`Name`)
+            $('#tableHrFileSize').text(`Size`)
+            $('#tableHrFileFormat').text(`Format`)
+            $('#tableHrFileDownload').text(`Download date`)
+            $('#tableHrFileControls').text(`Controls`)
+        }
+    }
+
+
+
+    function deleteFileAjax(elementId, fileName){
+        $.ajax({
+            url: `/api/delete_file?id=${directoryId}&filename=${fileName}`,
+            method: 'DELETE',
+            success: function(r) {
+                getFiles()
+            },
+            error: function(xhr, status, error) {
+                            alert("Ошибка удаления!")
+                console.error('Ошибка при обновлении данных:', error);
+            }
+        })
+    }
+
+    function checkPincodeDeleteFile(fileId, fileName){
+        createdPin ? (()=>{
+            $('#pinBg').fadeIn(300);
+            file_to_delete = fileName
+            file_to_delete_id = fileId
+        
+            if(createdPin){$('#clsBtnPinWindow').fadeIn()}
+            })()
+            : deleteFile(fileId, fileName, files_count-1)
+    }
+
+    function deleteFile(elementId, fileName, areYouSure){
+            areYouSure? deleteFileAjax(elementId, fileName)
+            : $('#deletePopup').fadeIn(300)
+    }
+
+    function expireExtend(date_coef){
+        let life = (unix_expr_date + (date_coef * 60 * 60 * 24  * 30));
+        lifeText = new Date(life*1000).toLocaleDateString();
+
+        $.ajax({
+            url: `/api/lifetime?id=${directoryId}&life=${life}`,
+            method: 'PATCH',
+            success: function(r) {
+                $('#expr_date').text(lifeText)
+                unix_expr_date += (date_coef * 60 * 60 * 24  * 30) 
+                new Toast({
+                    title: false,
+                    text: lang == 1 ? 'Дата успешно обновлена!' : 'Date extend successfully!',
+                    theme: 'light',
+                    autohide: true,
+                    interval: 5000
+                });
+                $('#deletionDate, #expr_date').addClass('highlight'); // Добавляем класс подсветки
+                setTimeout(function() {
+                    $('#deletionDate, #expr_date').removeClass('highlight'); // Убираем класс подсветки через секунду (или другое время)
+                }, 300); 
+                checkExpireDate()
+            },
+            error: function(xhr, status, error) {
+                console.error('Ошибка при обновлении данных:', error);
+            }
+        })
+    }
+
+    function checkExpireDate(){
+        const coef = 60 * 60 * 24 * 30;
+        const maxLifeTime = unix_created_date + (6 * coef); // Максимальный срок хранения
+        if (maxLifeTime < unix_expr_date + (0.1 * coef)) {
+            $('#expireExtendNav').remove();
+            new Toast({
+                title: false,
+                text: lang == 1 ? 'Достигнут лимит времени хранения файлов!' : 'Date extend no more!',
+                theme: 'light',
+                autohide: true,
+                interval: 5000
+            });
+        }
+        if (maxLifeTime < unix_expr_date + (0.25 * coef)) {
+            $('#expireExtend_25').remove();
+        }
+        if (maxLifeTime < unix_expr_date + (1 * coef)) {
+            $('#expireExtend1').remove();
+        } 
+        lifemaxLifeTime = new Date(maxLifeTime).toLocaleDateString();
+        lifeunix_expr_date = new Date(unix_expr_date).toLocaleDateString();
+    }
+
+    function deleteDir() {
+        var id = window.location.href.split("/");
+        id = id[id.length - 1];
+        $.ajax({
+            url: `/api/delete_dir?id=${id}`,
+            method: 'get'
+        }).then((r) => {
+                // Показываем всплывающее окно
+                $('#deletePopup').fadeOut(300)
+                $('#prepareFilesDeleteBg').fadeIn(300);
+
+                // Устанавливаем начальное значение счетчика
+                let countdown = 5;
+                $('#countdown').text(countdown);
+
+                // Настройка анимации окружности
+                const circle = $('#progressCircle');
+                const radius = circle.attr('r');
+                const circumference = 2 * Math.PI * radius; // Длина окружности
+                circle.css('stroke-dasharray', circumference);
+                circle.css('stroke-dashoffset', circumference);
+
+                // Запускаем обратный отсчет
+                const interval = setInterval(function() {
+                    countdown--;
+                    $('#countdown').text(countdown);
+
+                    // Обновляем анимацию окружности
+                    const offset = circumference * (countdown / 5);
+                    circle.css('stroke-dashoffset', offset);
+
+                    // Когда отсчет завершен, перенаправляем пользователя
+            if (countdown <= 0) {
+                clearInterval(interval);
+            window.location.href = "/";
+            }
+        }, 1000);
+        }).catch(() => {
+            alert("Ошибка удаления!")
+        });
+    }
+
+
+    function setCookie(name,value,days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+    function readableTime(unixtime) {
+        var date = new Date(unixtime * 1000);
+        var hours = date.getHours()-3;
+        var minutes = "0" + date.getMinutes();
+        var seconds = "0" + date.getSeconds();
+        var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+        return formattedTime;
+    }
+
+    let progressLastLoaded = 0;
+    function progressHandler(event, loaded = 0, total = 0) {
+    // считаем размер загруженного и процент от полного размера
+    let preparedLoaded = loaded + event.loaded;
+
+    if (preparedLoaded < progressLastLoaded) preparedLoaded = progressLastLoaded;
+    progressLastLoaded = preparedLoaded;
+
+    const preparedTotal = Math.max(total, event.total);
+
+    if (preparedLoaded > preparedTotal) preparedLoaded = preparedTotal;
+    if (preparedLoaded === preparedTotal) progressLastLoaded = 0;
+
+    const loadedMb = (preparedLoaded / BYTES_IN_MB).toFixed(1)
+    const totalSizeMb = (preparedTotal / BYTES_IN_MB).toFixed(1)
+    const percentLoaded = Math.round((preparedLoaded / preparedTotal) * 100)
+    const leftMb = totalSizeMb - loadedMb;
+    var now = new Date().getTime();
+    var bytes = preparedLoaded;
+    var kbytes = bytes / 1024;
+    var uploadedkBytes = kbytes - lastKBytes;
+    var elapsed = (now - lastNow) / 1000;
+    var kbps = elapsed ? uploadedkBytes / elapsed : 0;
+    var grade = "Kb/s";
+    var speed_value = kbps;
+    var mbps = kbps / 1024;
+    if (kbps > 1000) {
+        grade = "Mb/s";
+        speed_value = mbps;
+    }
+
+    lastKBytes = kbytes;
+    lastNow = now;
+
+    const leftTime = leftMb / mbps;
+
+    $('#progress_value').css("width", `${percentLoaded}%`);
+    $('#progress_text').text(`${percentLoaded}%`);
+    if (!isNaN(leftTime) && leftTime > -Infinity && leftTime < Infinity) {
+        $('#load_time').text(`${readableTime(leftTime)}`);
+    }
+    $('#speed').text(`${speed_value.toFixed(1)} ${grade}`);
+}
+
+    const stringService = {
+        replaceLast: (string, substring, newSubstring) => {
+            const startIndex = string.lastIndexOf(substring);
+            const endIndex = startIndex + substring.length;
+            const result =
+                string.slice(0, startIndex) +
+                newSubstring +
+                string.slice(endIndex, string.length);
+
+            return result;
+        },
+    };
+
+    function changeFilename(file, name) {
+        console.log(file, name)
+        return new File([file], name, {
+            type: file.type,
+            lastModified: file.lastModified,
+        })
+    }
+
+    function prepareFilename(names, name) {
+        let newName = name;
+        const nameSplit = newName.split(".");
+        const extension = nameSplit.pop();
+        const baseName = nameSplit.join(".");
+
+        const sequences = names.filter(item => item.includes(baseName));
+        if (sequences.length > 0) {
+            newName = `${baseName} (${sequences.length}).${extension}`;
+            if (sequences.length == 1 && sequences.includes(newName)) newName = `${baseName}.${extension}`;
+            if (sequences.includes(newName)) {
+                let counter = 1;
+                while (sequences.includes(newName)) {
+                    newName = `${baseName} (${counter}).${extension}`;
+                    counter++;
+                }
+            }
+        }
+
+        /*if (names.includes(newName)) {
+            // Регулярное выражение для поиска всех последовательностей (число) в конце имени файла
+            const sequenceRegex = /(\((\d+)\))(?=(?:\s*\(\d+\))*\.[^.]*$)/g;
+            const sequences = [...newName.matchAll(sequenceRegex)];
+
+            const nameSplit = newName.split(".");
+            const extension = nameSplit.pop();
+            const baseName = nameSplit.join(".");
+            newName = `${baseName} (${sequences.length}).${extension}`;
+            if (sequences.length > 0) {
+                // Берем последнюю последовательность (число)
+                const lastSequence = sequences[sequences.length - 1];
+                let sequenceNumber = Number(lastSequence[2]); // извлекаем число
+
+                // Увеличиваем число до тех пор, пока не найдем уникальное имя
+                do {
+                    sequenceNumber += 1;
+                    newName = newName.replace(lastSequence[1], `(${sequenceNumber})`);
+                } while (names.includes(newName));
+            } else {
+                // Если последовательностей нет, добавляем (1) перед расширением
+                const nameSplit = newName.split(".");
+                const extension = nameSplit.pop();
+                const baseName = nameSplit.join(".");
+                newName = `${baseName}(1).${extension}`;
+
+                // Если имя все еще не уникально, продолжаем увеличивать
+                while (names.includes(newName)) {
+                    const nextNumber = Number(newName.match(/\((\d+)\)\./)[1]) + 1;
+                    newName = newName.replace(/\(\d+\)\./, `(${nextNumber}).`);
+                }
+            }
+        }*/
+
+        return newName;
+    }
+
+    
+    function getLastSegmentOfUrl(url) {
+        const segments = url.split('/');
+        return segments[segments.length - 1];
+    }
+        var lang_id = getCookie("lang_id");
+        if (lang_id == null) lang_id = 1;
+        lang_id = parseInt(lang_id);
+        if ([1,2].includes(lang_id)) setLang(lang_id);
+
+        const hrefSplit = window.location.href.split("/");
+        const id = hrefSplit.at(-1);
+        // const id = 'UlFeUkVSRVJA' // For local development
+        const isNote = hrefSplit.includes('note');
+        let note = {};
+        let isAuthorized = getCookie(id) == "delete";
+        let isNoteAuthorized = getCookie(`note_${id}`) == "true";
+
+        var viewed = getCookie(`${id}_v`);
+        if (viewed == null) setCookie(`${id}_v`, true);
+
+        const currentUrl = window.location.href;
+        const lastSegment = getLastSegmentOfUrl(currentUrl);
+
+        const uploadLink = getCookie('upload_link');
+
+        if (uploadLink === lastSegment) {
+            // Используем ссылку из куки
+            document.getElementById('delete').style.visibility = 'visible';
+            // Выполняем необходимые действия с ссылкой
+        }
+
+        const queryString = window.location.search;
+
+        function createChunks(file, chunkSize) {
+            const chunks = [];
+            let start = 0;
+            while (start < file.size) {
+                let end = Math.min(start + chunkSize, file.size);
+                chunks.push(file.slice(start, end));
+                start = end;
+            }
+            return chunks;
+        }
+
+        function uploadChunk(filename, index) {
+    const {
+        chunks, uploadedChunks, total, retries, totalSize, nextFilename
+    } = chunksState[filename];
+    const chunk = chunks[index];
+    const formData = new FormData();
+    formData.append('chunk', chunk);
+    formData.append('filename', filename);
+    formData.append('chunk_index', index);
+    formData.append('total_chunks', total);
+    formData.append('dirname', id);
+
+    // Проверка состояния сети
+    if (!navigator.onLine) {
+        // Добавляем обработчик события восстановления сети
+        window.addEventListener('online', () => uploadChunk(filename, index), { once: true });
+        return;
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: `/api/v2/upload_chunk/`,
+        processData: false,
+        contentType: false,
+        data: formData,
+        uploadProgress: function(progressEvent) {
+            progressHandler(progressEvent, totalLoadedSize, totalFilesSize);
+        }
+    }).done((response) => {
+        const newUploadedChunks = uploadedChunks + 1;
+
+        chunksState[filename] = {
+            ...chunksState[filename],
+            uploadedChunks: newUploadedChunks,
+            retries: 3, // Reset retries, 3 for each chunk
+            loadedSize: chunksState[filename].loadedSize + chunk.size,
+        }
+        totalLoadedSize += chunk.size;
+
+        if (newUploadedChunks === total) {
+            if (nextFilename) {
+                /* Begin to upload next file */
+                uploadChunk(nextFilename, 0);
+            } else {
+                /* Handle last chunk of last file */
+                completeChunksUpload();
+            }
+        } else if (index === 0) {
+            /* Handle first chunk */
+            uploadChunk(filename, index + 1);
+        } else {
+            /* Handle all other chunks */
+            uploadChunk(filename, index + 1);
+        }
+    })
+    .fail((error) => {
+        console.log(error);
+        if (retries > 0) {
+            /* Has upload retries */
+            chunksState[filename] = {
+                ...chunksState[filename],
+                retries: retries - 1,
+            }
+            uploadChunk(filename, index)
+        } else {
+            /* No upload retries left */
+            alert(`${filename}: Не удалось загрузить чанк ${index}\nОшибка ${error.status}: ${error.statusText}`);
+
+            /* Display time selector if no directory created yet */
+            if (!catalogId) {
+                document.getElementById('upload_time').style.display = "flex";
+            }
+            stopUpload();
+        }
+    });
+}
+
+        function completeChunksUpload() {
+            chunksLoadedSize = 0;
+            const uploadedFilenames = Object.keys(chunksState);
+            chunksState = {};
+            completeUpload(uploadedFilenames);
+        }
+
+        function completeUpload(newFileNames) {
+            if (!($.isEmptyObject(note))) {
+                const noteFormData = new FormData();
+
+                noteFormData.append("note_id", `${note.id}`);
+                noteFormData.append("user_id", `${note.owner}`);
+                noteFormData.append("text", note.text);
+                noteFormData.append("url", note.url);
+                noteFormData.append("files", `${note.files}!;${newFileNames.join("!;")}`);
+
+                fetch(`${isTestEnvironment ? "https://localhost" : "https://localhost"}/api/note`, {
+                    body: noteFormData,
+                    method: "PUT",
+                });
+            }
+            
+            $('#upload_div').remove();
+            getFiles();
+        }
+
+        let totalFilesSize = 0;
+        let totalLoadedSize = 0;
+        let uploadAttempts = 0;;
+        let filesToRetry = [];
+        let tryingToReloadUnchunckedFile = false;
+
+        const MAX_FILENAME_LENGTH = 120;
+
+function upload(files) {
+    const catalogId = id;
+    if (files.length <= 0) return;
+    if (files.length > 30) return alert("Max 30 files!");
+
+    // Проверка длины имени файла
+    const invalidFiles = [];
+    for (let i = 0; i < files.length; i++) {
+        if (files[i].name.length > MAX_FILENAME_LENGTH) {
+            invalidFiles.push(files[i].name);
+        }
+    }
+
+    if (invalidFiles.length > 0) {
+        alert(`Следующие файлы имеют слишком длинные имена:\n${invalidFiles.join('\n')}`);
+        return;
+    }
+
+    const formSent = new FormData();
+    const xhr = new XMLHttpRequest();
+    let size = 0;
+    let size_grade = "MB";
+    let sizeBytes = 0;
+    const newFileNames = [];
+    const chunkedFiles = [];
+    const nonChunkedFiles = [];
+
+    for (let i = 0; i != files.length; i++) {
+        let file = files[i];
+        size += file.size;
+        sizeBytes += file.size;
+        const preparedFilename = prepareFilename([...fileOriginsNames, ...newFileNames], file.name);
+        const preparedFile = changeFilename(file, preparedFilename);
+
+        if (isChunked && file.size > 1024 * 1024) {
+            chunkedFiles.push(preparedFile);
+        } else {
+            nonChunkedFiles.push(preparedFile);
+        }
+        newFileNames.push(preparedFilename);
+    }
+
+    if (size < 100000) {
+        size_grade = "KB";
+        size /= 1000;
+    } else {
+        size /= BYTES_IN_MB;
+    }
+
+    if (size_grade == "MB") {
+        if ((size - (size / 10 * 5)) > 500) return alert("Max 500 MB!");
+    }
+
+    const loaderHtml = `<div id="upload_div" class="files_list_item air-file__progress-percent">
+            <div id="progress_value" class="air-file__progress-bar df jcsb aic">
+                <div class="df fdc">
+                    <div id="load_time">00:00:00</div>
+                    <div class="air-file__progress-details-down" id="speed">
+                        0 MB/s
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+    $('#loaderWrap').html(loaderHtml)
+    // Calculate total size of all files
+    totalFilesSize = sizeBytes;
+    totalLoadedSize = 0;
+
+    // Upload non-chunked files first
+    nonChunkedFiles.forEach((file) => {
+        formSent.append('files', file);
+    });
+
+    if (nonChunkedFiles.length > 0) {
+        xhr.upload.addEventListener('progress', (event) => progressHandler(event, totalLoadedSize, totalFilesSize), false);
+        xhr.open('POST', `/api/add_files?id=${catalogId}`);
+        xhr.send(formSent);
+
+        xhr.onload = function() {
+            if (xhr.status != 200) {
+                alert(`Ошибка ${xhr.status}: ${xhr.statusText}`);
+            } else {
+                // Update total loaded size
+                totalLoadedSize += nonChunkedFiles.reduce((sum, file) => sum + file.size, 0);
+                // Continue with chunked files upload
+                uploadChunkedFiles(chunkedFiles, newFileNames);
+            }
+        };
+
+        xhr.onerror = function () {
+            console.error('Ошибка загрузки файла');
+            uploadAttempts++;
+            if (uploadAttempts < MAX_UPLOAD_ATTEMPTS) {
+                // Повторная попытка загрузки через 5 секунд
+                setTimeout(() => {
+                    tryingToReloadUnchunckedFile = true;
+                    upload(files);
+                }, 1000);
+            } else {
+                alert('Превышено количество попыток загрузки. Пожалуйста, попробуйте позже.');
+                stopUpload();
+            }
+        };
+    } else {
+        // If there are no non-chunked files, start with chunked files directly
+        uploadChunkedFiles(chunkedFiles, newFileNames);
+    }
+    
+    getFiles()
+}
+
+function copyEachLink(eachLink) {
+    navigator.clipboard.writeText(eachLink);
+    new Toast({
+        title: false,
+        text: lang == 1 ? 'Ссылка успешно скопирована!' : 'The link has been copied successfully!',
+        theme: 'light',
+        autohide: true,
+        interval: 5000
+    });
+}
+
+// Добавляем обработчик события online для повторной загрузки
+window.addEventListener('online', () => {
+    if (filesToRetry && filesToRetry.length > 0) {
+        upload(filesToRetry);
+    }
+});
+
+
+// При разрыве сети сохраняем файлы для повторной загрузки
+window.addEventListener('offline', () => {
+    filesToRetry = Array.from(document.getElementById('file_upload').files);
+});
+
+        function uploadChunkedFiles(chunkedFiles, newFileNames) {
+            if (chunkedFiles.length === 0) {
+                completeUpload(newFileNames);
+                return;
+            }
+
+            const chunkSize = 1024 * 1024; // 1MB
+            let lastFilename = '';
+
+            chunkedFiles.forEach((preparedFile) => {
+                const chunks = createChunks(preparedFile, chunkSize);
+                const filename = preparedFile.name;
+
+                if (lastFilename) {
+                    chunksState[lastFilename].nextFilename = filename;
+                }
+                chunksState[filename] = {
+                    chunks,
+                    uploadedChunks: 0,
+                    total: chunks.length,
+                    retries: MAX_UPLOAD_ATTEMPTS,
+                    totalSize: preparedFile.size,
+                    loadedSize: 0,
+                };
+                lastFilename = filename;
+            });
+
+            chunksLoadedSize = 0;
+            uploadChunk(chunkedFiles[0].name, 0);
+            
+            getFiles()
+        }
+
+        function showContent(){
+                        const files = answer['files'];
+                        fileNames = files.map((file) => {
+                            /** First key in object is file name */
+                            return Object.keys(file)[0]
+                        })
+                        fileOriginsNames = files.map((file) => {
+                            /** First key in object is file name */
+                            return file.real_name
+                        })
+                        files_count = answer.files_count;
+                        if(files_count===1){
+                            $('#download_button').hide()
+                        }
+                        if(files_count>1){
+                            $('#download_button').show()
+                        }
+                        if(files_count===0){
+                            deleteDir()
+                        }
+            
+                        descriptionText = decodeURIComponent(answer['description']);
+                        $('#descrText').html(descriptionText.replace('\n', '<br/>'))
+                        let size = (answer['size']/BYTES_IN_MB).toFixed(1);
+                        if (size < 1) size = (answer['size']/BYTES_IN_MB).toFixed(2);
+                        created_date = new Date(answer['created']*1000);
+                        unix_created_date = answer['created'];
+                        expr_date = new Date(answer['expires_in']*1000);
+                        unix_expr_date = answer['expires_in'];
+                        checkExpireDate()
+                        $('.air-section__size').show();
+
+                        $('#dnld_date').text(created_date.toLocaleDateString())
+                        $('#dnld_date_cmnt').text(isRus() ? 'Дата загрузки' : 'Download date')
+                        $('#expr_date').text(expr_date.toLocaleDateString())
+                        $('#expr_date_cmnt').text(isRus() ? 'Дата удаления' : 'Expires date')
+
+                        document.getElementById("files_section").innerHTML = '';
+                        const filesCount = answer['files'].length;
+                        files_count = filesCount
+                        for (let i = 0; i != filesCount; i++) {
+                            let file = answer['files'][i];
+                            let key = Object.keys(file)[0];
+                            let realName = file.real_name;
+                            let value = Object.values(file)[0] + `${deviceDetect().isSafari ? '&ios=true' : ''}`;
+                            
+                            let bytes = file['file_size'];
+                            let kbytes = bytes / 1024;
+                            let grade = " kb";
+                            let size = Math.round(kbytes) + grade
+                            if (kbytes > 1000) {
+                                grade = " mb";
+                                size = (kbytes / 1024).toFixed(1) + grade
+                            }
+                            
+                            let parts = key.split('.')
+                                if (parts.length > 1) {
+                                    parts = parts[parts.length - 1].toUpperCase();
+                                }
+                            let html = `<div id="fileWrap${i}" class="files_list_item">
+                                            <div class="df aic curpo oh wsn toe hist-card" data-hystmodal="#myModal" id="video${i}" onclick="playVideo('${i}');" data-alt="${key}" data-size="${file.file_size}" data-src="${value}">${realName}<img class='ml12' src='/assets/img/_search.svg'/></div>
+                                            <div class="mb-dn">${size}</div>
+                                            <div class="mb-dn"><span class="videoSpanTxt">${isRus() ? 'Видео ' : 'Video '}</span> ${parts}</div>
+                                            <div class="mb-dn">${file['upload_date']}</div>
+                                            <div class="df jcsb">
+                                                <a href="${value}" download class="btn_crcl mr5"><img class="air-item__add-image" src="/assets/img/_download.svg"></a>
+                                                <div onclick="copyEachLink('localhost/f/${id}/${key}')" class="btn_crcl mr5"><img class="air-item__add-image" src="/assets/img/_copy.svg"></div>
+                                                <div onclick="checkPincodeDeleteFile('fileWrap${i}', \'${key}\')" class="btn_crcl"><img class="air-item__add-image" src="/assets/img/_crest.svg"></div>
+                                            </div>
+                                        </div>`
+                            if (file.type_file == "image") html = `<div id="fileWrap${i}" class="files_list_item">
+                                            <div class="df aic curpo oh wsn toe hist-card" data-hystmodal="#myModal" id="photo${i}" onclick="showPhoto('${i}');" data-alt="${key}" data-size="${file.file_size}" data-src="${value}">${realName}<img class='ml12' src='/assets/img/_search.svg'/></div>
+                                            <div class="mb-dn">${size}</div>
+                                            <div class="mb-dn"><span class="photoSpanTxt">${isRus() ? 'Изображение ' : 'Image '}</span> ${parts}</div>
+                                            <div class="mb-dn">${file['upload_date']}</div>
+                                            <div class="df jcsb">
+                                                <a target="_blank" href="${value}" class="btn_crcl mr5"><img class="air-item__add-image" src="/assets/img/_download.svg"></a>
+                                                <div onclick="copyEachLink('localhost/f/${id}/${key}')" class="btn_crcl mr5"><img class="air-item__add-image" src="/assets/img/_copy.svg"></div>
+                                                <div onclick="checkPincodeDeleteFile('fileWrap${i}', \'${key}\')" class="btn_crcl"><img class="air-item__add-image" src="/assets/img/_crest.svg"></div>
+                                            </div>
+                                        </div>`
+                            if (file.type_file == "file") html = `<div id="fileWrap${i}" class="files_list_item">
+                                            <div class="df aic curpo oh wsn toe">${realName}</div>
+                                            <div class="mb-dn">${size}</div>
+                                            <div class="mb-dn"><span class="docSpanTxt">${isRus() ? 'Документ ' : 'Document '}</span> ${parts}</div>
+                                            <div class="mb-dn">${file['upload_date']}</div>
+                                            <div class="df jcsb">
+                                                <a href="${value}" ${key.toLowerCase().endsWith('.pdf')?'':'download target="_blank"'} class="btn_crcl mr5"><img class="air-item__add-image" src="/assets/img/_download.svg"></a>
+                                                <div onclick="copyEachLink('localhost/f/${id}/${key}')" class="btn_crcl mr5"><img class="air-item__add-image" src="/assets/img/_copy.svg"></div>
+                                                <div onclick="checkPincodeDeleteFile('fileWrap${i}', \'${key}\')" class="btn_crcl"><img class="air-item__add-image" src="/assets/img/_crest.svg"></div>
+                                            </div>
+                                        </div>`;
+                            document.getElementById("files_section").innerHTML += html;
+                        }
+                        if ((isAuthorized || isNoteAuthorized) && filesCount < 30 ) {
+                            document.getElementById('file_upload').disabled = false
+                        }
+
+                        $files_list_items = $('#files_section .files_list_item').has('.hist-card');
+
+                        indices = []
+                        $files_list_items.each(function() {
+                            indices.push($(this).index());
+                        });
+
+                        document.getElementById('download_button').href = `/api/get_files?id=${id}`;
+
+                        $('#preloader').attr("hidden", "");
+                        document.getElementById('main').removeAttribute("hidden");
+            
+                        $('#pinBg').fadeOut()
+                        firstGetFiles = false
+        }
+
+        function getData() {
+            if (isNote) {
+                getNote(getFiles)
+            } else {
+                getFiles();
+            }
+        }
+
+        function getNote(callback) {
+            fetch(`${isTestEnvironment ? "https://localhost" : "https://localhost"}/api/info?url=${id}`)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    /** Data example */
+                    // {
+                    //     "id": 45,
+                    //     "owner": 2,
+                    //     "updated_at": "2024-08-24T15:36:20",
+                    //     "text": "5",
+                    //     "files": "add.svg",
+                    //     "url": "UV9UUUZSRlVD"
+                    // }
+                    noteText = data.text;
+                    note = data;
+                    if (data.text) {
+                        $('.air-section__note').css('display', 'inline-block');
+                        $('.air-section__note').html($('.air-section__note').html() + `<span id="text_note_label">${isRus() ? 'Заметка: ' : 'Note: '}</span><span class="air-section__note-text">${data.text}</span>`);
+                    }
+                    callback();
+                });
+        }
+
+        function stopLoader() {
+            $('#preloader').attr("hidden", "");
+            document.getElementById('main').removeAttribute("hidden");
+        }
+
+        function handleNoteWithoutFiles() {
+            stopLoader();
+            $('.air-section__size').hide();
+            $('#header_main').hide();
+
+            document.getElementById('file_upload').disabled = false
+            $('#file_upload').change(function (e) {
+                upload(e.target.files);
+            })
+        }
+
+        let usePin = false
+        let firstGetFiles = true
+
+        function getFiles() {
+            const xhr = new XMLHttpRequest()
+            xhr.open('GET', `/api/get_info?id=${id}${viewed == null ? '&view=true' : ''}${usePin ? `&pin=${createdPin}` : ''}`);
+            xhr.send();
+            xhr.onload = function() {
+                if (xhr.status == 403) {
+                    answer = xhr.response
+                    answer = JSON.parse(answer);
+                    usePin = true
+                    firstGetFiles ? answer.pin ? $('#pinBg').fadeIn(0) : window.location.href = "/404" : firstGetFiles = false;
+                }else if (xhr.status != 200) {
+                    if (noteText) {
+                        return handleNoteWithoutFiles();
+                    } else {
+                        window.location.href = "/404"
+                    }
+                } else {
+                    answer = xhr.response;
+                    if (answer == "404" || answer == 404) {
+                        if (noteText) {
+                            return handleNoteWithoutFiles();
+                        } else {
+                            window.location.href = "/404"
+                        }
+                    } else if (answer == 401) {
+                        $('#info').fadeIn(0);
+                        $('#info').text(isRus() ? "Происходит процесс сжатия медиа-файлов, после сжатия файлы будут доступны по данной ссылке." : "The process of compressing media files is underway, after compression, the files will be available at this link.");
+                        document.getElementById('header_main').style.display = 'none';
+                        $('#preloader').attr("hidden", "");
+                        document.getElementById('main').removeAttribute("hidden");
+                    } else {
+                        answer = JSON.parse(answer);
+
+                        answer['description']!==null?$('#descr').fadeIn(0):$('#descr').fadeOut(0)
+                        if(answer['files'].length <= 0) {
+                            if (noteText) {
+                                return handleNoteWithoutFiles();
+                            } else {
+                                return window.location.href = "/404"
+                            }
+                        }
+                            showContent()
+                    }
+
+                    if ([1,2].includes(lang_id)) setLang(lang_id);
+                }
+            };
+        }
+
+        if (id == null) window.location.href = "/404";
+        else {
+            getData();
+        }
+
+    function showPhoto(num) {
+        choosenCard = num
+        let photo = $(`#photo${num}`).attr("data-src");
+        let photo_name = $(`#photo${num}`).attr("data-alt");
+        let photo_size = $(`#photo${num}`).attr("data-size");
+        let size = (parseInt(photo_size)/BYTES_IN_MB).toFixed(1);
+        if (size < 1) size = (parseInt(photo_size)/BYTES_IN_MB).toFixed(2);
+        document.getElementById('modal_photo').removeAttribute('hidden');
+        $('#modal-photo').attr("src", photo);
+        $('#modal_video').attr("hidden", true);
+    }
+
+    function playVideo(num) {
+        choosenCard = num
+        let video = $(`#video${num}`).attr("data-src");
+        let video_name = $(`#video${num}`).attr("data-alt");
+        let video_size = $(`#video${num}`).attr("data-size");
+        video_size = (parseInt(video_size)/BYTES_IN_MB).toFixed(1);
+        if (video_size < 1) video_size = (parseInt(video_size)/BYTES_IN_MB).toFixed(2);
+        document.getElementById('modal_video').removeAttribute('hidden');
+        $('#modal-video').attr("src", video);
+        $('#modal_photo').attr("hidden", true);
+    }
+</script>
+</body>
+</html>

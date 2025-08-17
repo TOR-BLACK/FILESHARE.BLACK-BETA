@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="text1">404 ошибка</title>
+    <meta name="description" content=""/>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="assets/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="404.css">
+</head>
+<body>
+
+    <header class="air-header">
+        <div class="wrap df aic jcsb">
+            <div class="air-header__exif">
+                Exif is cleaned
+            </div>
+        
+            <div class="air-header__title" style="user-select: none;">
+                <a class="air-header__title-link switch_logo" title="localhost" href="/">
+                    <img src="/assets/img/logo.svg" alt="">
+                    <img src="/assets/img/logo2.svg" alt="">
+                </a>
+            </div>
+        
+            <div></div>
+        
+            <div class="df aic">   
+                <a class="mr24 mb-mr12 mb-ml12 tac wa" style="display: block; margin: 0; margin-right: 20px;" href="bug-bounty-hunting.html">Bug Bounty Hunting</a>
+                <nav class="air-header__nav ml10_ df">
+                    <a id="lang1" href="/?lang=ru" class="air-header__link btn" onclick="setLang(1)">Рус</a>
+                    <a id="lang2" href="/?lang=en" class="air-header__link btn" onclick="setLang(2)">Eng</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+
+<section class="air-404 m20h0">
+    <div class="wrap df jcc">
+        <div class="air-404__left">
+            <img width="201" height="202" src="assets/img/attention-sign-svgrepo-com.svg" class="air-404__img" alt="">
+        </div>
+        <div class="air-404__right">
+            <h1 class="air-404__title">
+                <p id="text2">Файлы по этой ссылке были удалены</p>
+            </h1>
+            <p class="air-404__subtitle" id="text3">Возможные причины:</p>
+            <ul class="air-404__ul">
+                <li class="air-404__li" id="text4">Срок хранения закончился</li>
+                <li class="air-404__li" id="text5">Владелец удалил файлы</li>
+                <li class="air-404__li" id="text6">Вы посещаете неправильную ссылку</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<script src="assets/js/custom.js"></script>
+<script type="text/javascript">
+    function setCookie(name,value,days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+    function setLang(lang_id) {
+        setCookie("lang_id", lang_id);
+        if (lang_id == 1) {
+            $('#lang1').addClass("active");
+            $('#lang2').removeClass("active");
+            $('#text1').text("404 ошибка");
+            $('#text2').text("Файлы по этой ссылке были удалены");
+            $('#text3').text("Возможные причины:");
+            $('#text4').text("Срок хранения закончился");
+            $('#text5').text("Владелец удалил файлы");
+            $('#text6').text("Вы посещаете неправильную ссылку");
+        }
+        else if (lang_id == 2) {
+            $('#lang2').addClass("active");
+            $('#lang1').removeClass("active");
+            $('#text1').text("404 error");
+            $('#text2').text("The files at this link have been deleted");
+            $('#text3').text("Possible reasons:");
+            $('#text4').text("Shelf life has expired");
+            $('#text5').text("The owner deleted the files");
+            $('#text6').text("You are visiting the wrong link");
+        }
+    }
+
+    $(document).ready(() => {
+        var lang_id = getCookie("lang_id");
+        lang_id = parseInt(lang_id);
+        if ([1,2].includes(lang_id)) setLang(lang_id);
+    });
+</script>
+<p class="air-section__description" id="text7">2025 (с) dvdBlack team</p>
+</body>
+</html>

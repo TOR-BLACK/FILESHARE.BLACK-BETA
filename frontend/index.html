@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="text1">Главная страница</title>
+    <meta name="description" content=""/>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/assets/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/jq-ajax-progress.min.js"></script>
+
+    <link href="/assets/toast.min.css" rel="stylesheet">
+    <script src="/assets/toast.min.js"></script>
+    <link rel="stylesheet" href="/assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body style="user-select: none; background: #161616;">
+
+<noscript>
+    <style>
+
+        @font-face {
+            font-family: 'Futura PT';
+            src:
+            url('./assets/fonts/?#iefix') format('embedded-opentype'),
+            url('./assets/fonts/FuturaPT-Light.woff2') format('woff2'),
+            url('./assets/fonts/FuturaPT-Light.woff') format('woff'),
+            url('./assets/fonts/FuturaPT-Light.ttf') format('truetype');
+            font-weight: 300;
+            font-style: normal;
+        }
+        body > :not(#noscript, span:first-child) {
+            display: none;
+        }
+        html body > span:first-child {
+            display: block;
+        }
+        body{
+            padding: 0;
+            margin: 0;
+            font-family: 'Futura PT';
+            font-weight: 300;
+        }
+        #closePopup:checked ~ #deletePopup,
+        #closePopup:checked ~ #popupBg{
+            display: none;
+        }
+        #noscrpit{
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .files_input_icon{
+            display: flex;
+            box-shadow: 0 0 5px #ffffff00;
+            transition: .3s;
+        }
+        .files_input_icon:hover{
+            box-shadow: 0 0 5px #fff;
+        }
+        .btn{
+            padding: 12px 35px;
+            background: transparent;
+            border: 1px solid #2d2d2d;
+            border-radius: 13px;
+            transition: .3s;
+            color: #fff;
+            cursor: pointer;
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-style: unset;
+            text-decoration: none;
+        }
+
+        .btn:hover{
+            border: 1px solid #fff;
+        }
+        .air-register__input {
+            border-radius: 13px;
+            border: 1px solid #2d2d2d;
+            background: transparent;
+            padding: min(max(10px, calc(10px + (19 - 10) * ((100vw - 450px) / (1920 - 450)))), 19px);
+            box-sizing: border-box;
+            width: 100%;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            color: #fff;
+            resize: none;
+        }
+
+        .air-register__input::placeholder {
+            color: #b1b1b1;
+        }
+
+        .air-register__input:-ms-input-placeholder {
+            color: #b1b1b1;
+        }
+
+        .air-register__input::-ms-input-placeholder {
+            color: #b1b1b1;
+        }
+
+        .air-register__input:hover {
+            border-color: #fff;
+        }
+
+        .air-register__input:focus-visible,
+        .air-register__input:focus {
+            border-color: #fff;
+            outline: none;
+        }
+    </style>
+    <div id="noscrpit">
+
+        <input type="checkbox" id="closePopup" style="display: none;">
+
+        <div id="popupBg" style="position: fixed; width: 100vw; height: 100vh; background-color: #00000050; z-index: 1000;"></div>
+        <div id="deletePopup" style="background-color: #161616; border-radius: 1.5em; border: 1px solid #2d2d2d; padding: 42px 40px; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 10000;">
+            <p style="color: #737373;">Для корректной работы сайта необходимо включить JavaScript.</p>
+            
+            <label class="btn" for="closePopup">
+                Закрыть
+            </label>
+        </div>
+        <form style="width: 100%; max-width: 500px;" action="/v2/nojs_upload" method="post" enctype="multipart/form-data">
+            <h2 style="color: #737373; margin: 0 0 30px 0; text-align: center;">Отправить файл</h2>
+            <div style="width: 163px; display: flex; flex-direction: column; align-items: center;">
+                <label class="files_input_icon" for="files" style="cursor: pointer; border-radius: 50%;">
+                    <svg width="130" height="130" viewBox="0 0 163 163" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M60.8571 105.2C52.0995 105.2 45 98.1841 45 89.5294C45 80.8747 52.0995 73.8588 60.8571 73.8588C61.9084 73.8588 62.9358 73.9598 63.9298 74.1529M63.9298 74.1529C63.0821 71.8919 62.619 69.4464 62.619 66.8941C62.619 55.3546 72.0851 46 83.762 46C94.6389 46 103.597 54.1167 104.774 64.5554M63.9298 74.1529C66.0182 74.5581 67.9595 75.3684 69.6667 76.4976M90.8097 64.6007C93.0138 63.8307 95.3859 63.4118 97.8571 63.4118C100.28 63.4118 102.606 63.8143 104.774 64.5554M104.774 64.5554C113.054 67.3869 119 75.1601 119 84.3057C119 94.3217 111.869 102.692 102.35 104.727" stroke="white" stroke-linecap="round"/>
+                        <path d="M82.0001 94.1001V116.3M82.0001 94.1001L89.4001 101.5M82.0001 94.1001L74.6001 101.5" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="81.5" cy="81.5" r="81" stroke="#2D2D2D"/>
+                    </svg>
+                </label>
+                <div style="color: #737373; font-size: 12px; margin: 10px 0;">Прикрепите файл.</div>
+                <input style="display: none;" type="file" id="files" name="files" multiple required value="">
+            </div>
+
+            <textarea class="air-register__input" id="comment" name="comment" rows="4" cols="50" placeholder="Добавьте комментарий..."></textarea>
+            <button class="btn" type="submit">Отправить</button>
+        </form>
+    </div>  
+  </noscript>
+
+<header>
+    <div class="wrap df aic jcsb">
+        <div class="air-header__exif">
+            Exif is cleaned
+        </div>
+
+        <div class="air-header__title" style="user-select: none;">
+            <a class="air-header__title-link switch_logo" title="localhost" href="/">
+                <img src="/assets/img/logo.svg" alt="">
+                <img src="/assets/img/logo2.svg" alt="">
+            </a>
+        </div>
+
+        <div>
+        </div>
+
+        <div class="df aic">   
+            <a class="mr24 mb-mr12 mb-ml12 tac wa" href="https://localhost/bug-bounty-hunting">Bug Bounty Hunting</a>
+            <nav class="air-header__nav ml10_ df">
+                <a id="lang1" href="/?lang=ru" class="air-header__link btn" onclick="setLang(1)">Рус</a>
+                <a id="lang2" href="/?lang=en" class="air-header__link btn" onclick="setLang(2)">Eng</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="preloader" id="preloader">
+  <svg class="preloader__image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <path fill="currentColor"
+      d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+    </path>
+  </svg>
+</div>
+
+<a id="reclamaBanner" class="raclama_section" style="display: block;">
+    <script>
+    $.ajax({
+        url: `/adm/banner/api/current`,
+        method: 'get'
+    }).then((r) => {
+        $('#reclamaBanner').css('background-image', `url(${r.bannerPath})`);
+        $('#reclamaBanner').attr('href', `${r.bannerUrl}`);
+    }).catch(() => {
+        console.log("Ошибка загрузки банера!")
+    });
+    </script>
+</a>
+
+<section hidden id="main">
+    <div class="wrap">
+
+    <div class="air-file__container">
+        <div class="air-file__logo">
+            <label id="upload_button" class="small-rotate curpo df fdc aic" style="user-select: none;">
+                <svg width="130" height="130" viewBox="0 0 163 163" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M60.8571 105.2C52.0995 105.2 45 98.1841 45 89.5294C45 80.8747 52.0995 73.8588 60.8571 73.8588C61.9084 73.8588 62.9358 73.9598 63.9298 74.1529M63.9298 74.1529C63.0821 71.8919 62.619 69.4464 62.619 66.8941C62.619 55.3546 72.0851 46 83.762 46C94.6389 46 103.597 54.1167 104.774 64.5554M63.9298 74.1529C66.0182 74.5581 67.9595 75.3684 69.6667 76.4976M90.8097 64.6007C93.0138 63.8307 95.3859 63.4118 97.8571 63.4118C100.28 63.4118 102.606 63.8143 104.774 64.5554M104.774 64.5554C113.054 67.3869 119 75.1601 119 84.3057C119 94.3217 111.869 102.692 102.35 104.727" stroke="white" stroke-linecap="round"/>
+                    <path d="M82.0001 94.1001V116.3M82.0001 94.1001L89.4001 101.5M82.0001 94.1001L74.6001 101.5" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="81.5" cy="81.5" r="81" stroke="#2D2D2D"/>
+                  </svg>
+            </label>
+            <p id="uploadMoreComment" class="upload_more_comment dn mt10 tac" style="font-size: 12px; white-space: pre;">Нужно загрузить еще файл? Нажмите еще раз!</p>
+            <input type="file" id="file_upload" multiple hidden style="display: none;"/>
+        </div> 
+
+        <div class="air-file__upload" >
+            <div class="air-file__upload-title" id="text2">
+                    Загружай файлы
+            </div>
+            <div class="air-file__upload-desc" id="text3">
+                    для вставки файлов,
+                    из&nbsp;буфера обмена
+                    нажмите CTRL+V
+            </div>
+        </div>
+
+        <div id="dragImage" class="drag_image h100p" style="user-select: none;">
+            <div>Перетащите файл</div>
+        </div>
+
+        <div hidden id="upload_div" class="air-file__progress posr">
+
+            <div class="air-file__progress-details">
+                <div class="air-file__progress-details-left">
+
+                    <img src="assets/img/time-icon.png" alt="" class="air-file__progress-details-icon">
+
+                    <div class="air-file__progress-details-block">
+                        <div id="load_time" class="air-file__progress-details-time">00:00:00</div>
+                        <div class="air-file__progress-details-down" id="text4">
+                            до окончания загрузки
+                        </div>
+                        <div class="air-file__progress-details-down" id="speed">
+                            0 MB/s
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="air-file__progress-hr"></div>
+
+                <div class="air-file__progress-details-right">
+                    <div id="files_count" class="air-file__progress-details-count">3</div>
+                    <div class="air-file__progress-details-text" id="text5">файлов</div>
+                    <div id="files_size" class="air-file__progress-details-size">34.7 мб</div>
+                    <div class="air-file__progress-details-text" id="text6">общий размер</div>
+                </div>
+            </div>
+
+            <div class="air-file__progress-percent">
+                <div id="progress_value" class="air-file__progress-bar" style="width: 0%"></div>
+                <div id="progress_text" class="air-file__progress-percent-number">0%</div>
+            </div>
+
+            <button id="delete_button" class="btn_crcl clear_files_btn posab t0 r-50" onclick="clearFileQueue()">
+                <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.625 4L4.625 12M4.625 4L12.625 12" stroke="white" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+        <style>
+          </style>
+        <div class="comment_wrap">
+            <div class="df mb10 jcc" style="height: 20px;">
+                <div class="checkbox_wrap">
+                    <input onclick="toggleComment()" type="checkbox" name="" id="descrOn" style="margin-right: 10px;">
+                    <label id="descrOnText" style="white-space: nowrap;" for="descrOn">Добавить комментарий</label>
+                </div>
+            </div>
+            <div id="editorContainerWrap">
+                <div class="df mb10 jcc" style="height: 20px;">
+                    <div class="checkbox_wrap">
+                        <input onclick="$('#line-list').toggleClass('hide')" disabled type="checkbox" name="" id="commentNumericOn" style="margin-right: 10px;">
+                        <label id="commentNumericOnText" style="white-space: nowrap;" for="commentNumericOn">Показать нумерацию</label>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="pincode_wrap">
+            <div class="df mb10 jcc" style="height: 20px;">
+                <div class="checkbox_wrap">
+                    <input onclick="" type="checkbox" name="" id="saveLink" style="margin-right: 10px;">
+                    <label id="saveLinkLabel" style="white-space: nowrap;" for="saveLink">Безопасная ссылка</label>
+                </div>
+            </div>
+
+            <div class="df mb10 jcc" style="height: 20px;">
+                <div class="checkbox_wrap">
+                    <input onclick="$('#pincodeAttention').fadeToggle(0);" type="checkbox" name="" id="usePin" style="margin-right: 10px;">
+                    <label id="usePinLabel" style="white-space: nowrap;" for="usePin">Добавить пинкод</label>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button id="sendFiles" onclick="sendFiles()" class="btn w100p">
+                <div class="send_files_text">Отправить</div>
+                <svg class="send_files_loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" width="30" height="30" style="shape-rendering: auto; display: none;">
+                    <g data-idx="1">
+                        <circle stroke-dasharray="164.93361431346415 56.97787143782138" r="35" stroke-width="10" stroke="#fff" fill="none" cy="50" cx="50" data-idx="2" transform="matrix(-0.2486897839851339,0.9685831876206749,-0.9685831876206749,-0.2486897839851339,110.86364858029043,14.005329818222954)"></circle>
+                        <g data-idx="4"></g>
+                    </g>
+                </svg>
+            </button>
+            <div id="enterToSend" style="font-size: 12px; margin-top: 10px; margin-bottom: 30px; text-align: center;">Чтобы отправить файл нажмите Enter</div>
+        </div>
+
+    </div>
+</section>
+
+<div id="editorContainer" class="editor-container dn w100p mra mla mb24 pr br1 brr" style="max-width: 900px; position: relative; overflow-x: hidden; overflow-y: auto;">
+    <ol id="line-list" class="hide" style="width: calc(100% - 42px); position: absolute; top: 1px; left: 30px; padding: 0; margin: 0; list-style-position: inside; line-break: anywhere; color: #737373; border-left: 1px solid #2d2d2d; height: -webkit-fill-available; min-height: fit-content;">
+        <!-- List items will be dynamically added here -->
+    </ol>
+    <div style="width: 1px; height: 100%; left: 40px; top: 0; background-color: #2d2d2d; position: absolute;"></div>
+    <textarea disabled="true" name="" id="description" cols="29" rows="10" style="outline: none; display: table; margin-left: 40px; border: none; width: calc(100% - 40px); color: #fff; resize: none; background: #161616; position: relative; z-index: 10; line-break: anywhere;" maxlength="1000"></textarea>
+    <script>
+        function toggleComment(){
+            $('#description').prop('disabled', (index, value) => !value);
+            $('#commentNumericOn').prop('disabled', (index, value) => !value);
+            $('#editorContainer').fadeToggle(0)
+        }
+        
+        $(document).ready(function() {
+            var $textarea = $('#description');
+            var $ol = $('#line-list');
+
+            function updateList() {
+                var lines = $textarea.val().split('\n');
+                var $lis = $ol.find('li');
+
+                // Remove excess list items
+                if ($lis.length > lines.length) {
+                    $lis.slice(lines.length).remove();
+                }
+
+                // Add new list items if needed and populate them with text
+                if ($lis.length < lines.length) {
+                    for (var i = $lis.length; i < lines.length; i++) {
+                        $ol.append('<li>' + lines[i] + '</li>');
+                    }
+                } else {
+                    // Update existing list items with corresponding line text
+                    $lis.each(function(index) {
+                        if (index < lines.length) {
+                            $(this).text(lines[index]);
+                        } else {
+                            $(this).text(''); // Clear excess list items
+                        }
+                    });
+                }
+            }
+
+            // Function to prevent multiple spaces (but keep line breaks)
+            function preventMultipleSpaces(event) {
+                var value = $textarea.val();
+                // Replace multiple spaces within lines, but keep line breaks
+                var filteredValue = value.replace(/[^\S\n]+/g, ' ');
+                // Update the textarea value
+                $textarea.val(filteredValue);
+                // Update the list
+                updateList();
+            }
+
+            // Attach the update function to the input event
+            $textarea.on('input', preventMultipleSpaces);
+
+            // Initialize the list with the starting content of the textarea
+            updateList();
+        });
+    </script>
+</div>
+<div id="upload_time">
+    <div class="air-file__count">
+        <style>
+            .slider-container {
+                width: 280px;
+                height: 15px;
+                margin: 20px 0;
+            }
+            .slider-option {
+                position: absolute;
+                top: -10px;
+                width: 50px;
+                transform: translate(-50%);
+                font-size: 14px;
+                color: #737373;
+                padding: 5px;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+                text-align: center;
+                cursor: pointer;
+                font-size: 12px;
+            }
+            .slider-option_disabled {
+                position: absolute;
+                top: -10px;
+                width: 50px;
+                transform: translate(-50%);
+                font-size: 14px;
+                color: #737373;
+                padding: 5px;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+                text-align: center;
+                cursor: pointer;
+                font-size: 12px;
+            }
+            .slider-option.selected {
+                border: 1px solid #2d2d2d;
+                color: #fff;
+            }
+            .ui-slider-handle {
+                background: #fff;
+                border-radius: 50%;
+            }
+            .slider-option_wrap {
+                position: relative;
+                margin-top: 20px;
+            }
+            .ui-widget.ui-widget-content {
+                background: transparent;
+                border: 1px solid #2d2d2d;
+                cursor: pointer;
+            }
+            .ui-widget-header {
+                background: transparent;
+            }
+
+            .ui-widget-content .ui-state-active {
+                border: 1px solid #c5c5c5;
+                background: #fff;
+            }
+            @media (max-width: 660px) {
+                .air-file__count {
+                    margin: 26px 0px;
+                    width: auto;
+                    width: 100%;
+                }
+
+                .slider-container{
+                    width: 240px;
+                }
+
+                .slider-option{
+                    color: #737373;
+                    font-size: 11px;
+                    padding: 2px;
+                    font-size: 11px;
+                }
+            }
+        </style>
+        <!-- <img src="assets/img/time-dark.png" class="air-file__count-img" alt=""> -->
+        <div class="slider-container">
+        <div id="slider"></div>
+        <div class="slider-option_wrap">
+            <div class="slider-option" data-opt="0.0333" style="left: 0;">1 день</div>
+            <div class="slider-option" data-opt="0.1" style="left: 25%;">3 дня</div>
+            <div class="slider-option selected" data-opt="0.25" style="left: 50%;">неделя</div>
+            <div class="slider-option" data-opt="1" style="left: 75%;">месяц</div>
+            <div class="slider-option" data-opt="3" style="left: 100%;">3 месяца</div>
+        </div>
+        </div>
+        <script src="/assets/js/jquery-ui.min.js"></script>
+        <script>
+            $(function() {
+            const options = ['1 день', '3 дня', 'неделя', 'месяц', '3 месяца'];
+            const sliderOptions = $('.slider-option').not('[data-opt=""]');
+
+            $('#slider').slider({
+            range: "min",
+            min: 0,
+            max: options.length-1,
+            value: 2,
+            slide: function(event, ui) {
+                    const selectedIndex = ui.value;
+                    const selectedOption = sliderOptions.eq(selectedIndex);
+                    const selectedValue = selectedOption.attr('data-opt');
+                    sliderOptions.removeClass('selected');
+                    selectedOption.addClass('selected');
+                }
+            });
+
+                sliderOptions.click(function(event) {
+                    if ($(this).attr('data-opt')) {
+                        const selectedIndex = sliderOptions.index(this);
+                        $('#slider').slider("value", selectedIndex);
+
+                        // Update selected class
+                        sliderOptions.removeClass('selected');
+                        $(this).addClass('selected');
+
+                        // Get the selected value
+                        const selectedValue = $(this).attr('data-opt');
+                        console.log('Selected Value: ' + selectedValue);
+                    } else {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        // Optionally show a message
+                        alert('Этот пункт недоступен для выбора.');
+                    }
+                    });
+
+                    // Initial selection
+                    sliderOptions.eq(2).addClass('selected');
+
+                    // Prevent interaction with "бессрочно"
+                    $('.slider-option[data-opt=""]').click(function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    // Optionally show a message
+                    alert('Этот пункт недоступен для выбора.');
+                });
+            });
+        </script>
+
+
+    </div>
+
+    <div class="air-file__code">
+        <div class="air-file__code-header">
+            <label for="upload-pin">Пин-код</label>
+            <input type="password" id="upload-pin" name="pin-code" placeholder="Введите пин-код"/>
+            <div class="air-file__code-faq">
+                <img src="/assets/img/question.svg" alt="Подсказка" class="air-file__code-faq-image" />
+                <div class="air-file__code-faq-text">Доступ к бессрочной загрузке могут получить лица, знающие
+                    пин-код. Пин-код можно узнать у администрации данного ресурса.
+                </div>
+            </div>
+        </div>
+        <div class="air-file__code-error">
+            Вы ввели неверный пин-код
+        </div>
+    </div>
+    <div class="air-file__compression">
+        <div class="air-file__compression-label">
+            Сжатие файлов
+        </div>
+        <button class="air-file__compression-toggle">
+            <span class="air-file__compression-toggle-text">Выкл</span>
+        </button>
+    </div>
+</div>
+</div>
+
+<section id="final_section" hidden class="air-section wrap">
+
+    <div class="air-section__title" id="text10-1">
+        Управление загруженными файлами:
+    </div>
+
+    <div style="align-items: center; ">
+        <div class="air-section__download-link">
+            <img src="assets/img/сopy-icon.png" alt="ссылка для скачивания" class="air-download-link__icon">
+            <div class="air-download-link__url" onclick="copyEditLink()" style="user-select: all;" id="edit_link"></div>
+            <div onclick="copyEditLink()" class="air-download-link__copy">Скопировать</div>
+            <a id="open_link" class="air-download-link__open">
+                <svg fill="#ffffff" width="40" height="40" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                    <path d="M36.026,20.058l-21.092,0c-1.65,0 -2.989,1.339 -2.989,2.989l0,25.964c0,1.65 1.339,2.989 2.989,2.989l26.024,0c1.65,0 2.989,-1.339 2.989,-2.989l0,-20.953l3.999,0l0,21.948c0,3.308 -2.686,5.994 -5.995,5.995l-28.01,0c-3.309,0 -5.995,-2.687 -5.995,-5.995l0,-27.954c0,-3.309 2.686,-5.995 5.995,-5.995l22.085,0l0,4.001Z"/>
+                    <path d="M55.925,25.32l-4.005,0l0,-10.481l-27.894,27.893l-2.832,-2.832l27.895,-27.895l-10.484,0l0,-4.005l17.318,0l0.002,0.001l0,17.319Z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+    
+    <div id="pincodeAttention" class="p brt1 mb24 dn brr">
+        <p class="df aic">
+            <span class="mra">Внимание! Пинкод управления загрузкой — <span onclick="copyPinLink()" id="pincodeVis" class="cw curpo" style="user-select: text;">1234</span>.<br>
+                Сохраните его, чтобы не потерять контроль над файлами</span>
+            <span onclick="copyPinLink()" class="btn_crcl ml24">
+                <img src="assets/img/_copy.svg" alt="">
+            </span>
+            
+        </p>
+    </div>
+
+    <div class="air-section__title" id="text10">
+        Скачать в архиве:
+    </div>
+    <div style="align-items: center;">
+        <div class="air-section__download-link">
+            <img src="assets/img/сopy-icon.png" alt="ссылка для скачивания" class="air-download-link__icon">
+            <div class="air-download-link__url" onclick="copyDownloadLink()" style="user-select: all;"><a id="download_link"></a></div>
+            <div onclick="copyDownloadLink()" class="air-download-link__copy">Скопировать</div>
+            <a id="open_download_link" class="air-download-link__open">
+                <svg fill="#ffffff" width="40" height="40" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                    <path d="M36.026,20.058l-21.092,0c-1.65,0 -2.989,1.339 -2.989,2.989l0,25.964c0,1.65 1.339,2.989 2.989,2.989l26.024,0c1.65,0 2.989,-1.339 2.989,-2.989l0,-20.953l3.999,0l0,21.948c0,3.308 -2.686,5.994 -5.995,5.995l-28.01,0c-3.309,0 -5.995,-2.687 -5.995,-5.995l0,-27.954c0,-3.309 2.686,-5.995 5.995,-5.995l22.085,0l0,4.001Z"/>
+                    <path d="M55.925,25.32l-4.005,0l0,-10.481l-27.894,27.893l-2.832,-2.832l27.895,-27.895l-10.484,0l0,-4.005l17.318,0l0.002,0.001l0,17.319Z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <div class="air-section__title" id="text10-each" style="display: none;">
+        Ссылки на файлы:
+    </div>
+    <div id="eachList" style="display: none; overflow-y: auto; max-height: 200px; max-width: 775px; margin: 0 auto; border: 1px solid #2d2d2d; border-radius: 13px; padding: 20px; margin-bottom: 30px;">
+        
+    </div>
+
+
+    <div class="air-section__title" id="text10-2">
+        Ваша ссылка для удаления:
+    </div>
+    <div style="align-items: center;">
+        <div class="air-section__download-link">
+            <img src="assets/img/сopy-icon.png" alt="ссылка для скачивания" class="air-download-link__icon">
+            <div class="air-download-link__url" onclick="copyDeleteLink()" style="user-select: all;"><a id="delete_link"></a></div>
+            <div onclick="copyDeleteLink()" class="air-download-link__copy">Скопировать</div>
+            <a href="" id="open_delete_link_withPinCode" class="air-download-link__open" style="display: none;">
+                <svg fill="#ffffff" width="40" height="40" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                    <path d="M36.026,20.058l-21.092,0c-1.65,0 -2.989,1.339 -2.989,2.989l0,25.964c0,1.65 1.339,2.989 2.989,2.989l26.024,0c1.65,0 2.989,-1.339 2.989,-2.989l0,-20.953l3.999,0l0,21.948c0,3.308 -2.686,5.994 -5.995,5.995l-28.01,0c-3.309,0 -5.995,-2.687 -5.995,-5.995l0,-27.954c0,-3.309 2.686,-5.995 5.995,-5.995l22.085,0l0,4.001Z"/>
+                    <path d="M55.925,25.32l-4.005,0l0,-10.481l-27.894,27.893l-2.832,-2.832l27.895,-27.895l-10.484,0l0,-4.005l17.318,0l0.002,0.001l0,17.319Z"/>
+                </svg>
+            </a>
+            <div onclick="deleteUploaded()" id="open_delete_link" class="air-download-link__open">
+                <svg fill="#ffffff" width="40" height="40" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                    <path d="M36.026,20.058l-21.092,0c-1.65,0 -2.989,1.339 -2.989,2.989l0,25.964c0,1.65 1.339,2.989 2.989,2.989l26.024,0c1.65,0 2.989,-1.339 2.989,-2.989l0,-20.953l3.999,0l0,21.948c0,3.308 -2.686,5.994 -5.995,5.995l-28.01,0c-3.309,0 -5.995,-2.687 -5.995,-5.995l0,-27.954c0,-3.309 2.686,-5.995 5.995,-5.995l22.085,0l0,4.001Z"/>
+                    <path d="M55.925,25.32l-4.005,0l0,-10.481l-27.894,27.893l-2.832,-2.832l27.895,-27.895l-10.484,0l0,-4.005l17.318,0l0.002,0.001l0,17.319Z"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<footer class="mta mla mra mb24 tac" id="text12">
+    <div class="wrap">
+        2025 (с) dvdBlack team
+    </div>
+</footer>
+
+
+<div class="air-section" style="padding: 10px 30px; background-color: rgb(22 22 22); display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 10000; border: 1px solid #2d2d2d; padding: 10px 40px;" id="deletePopup">
+    <h2>Вы точно хотите удалить загруженные файлы?</h2>
+    <div style="display: flex; width: 100%; justify-content: center;">
+        <input onClick="deleteUploaded()" style="width: 100%; max-width: 300px; padding: 14px 30px; margin: 20px; cursor: pointer;" value="Удалить" type="button" class="air-register__input" id="deletePopupDeleteBtn">
+        <input onClick="$('#deletePopup').fadeOut(500)" style="width: 100%; max-width: 300px; padding: 14px 30px; margin: 20px; cursor: pointer;" value="Отмена" type="button" class="air-register__input" id="deletePopupCancelBtn">
+    </div>
+</div>
+
+<div id="prepareFilesDeleteBg" style="width: 100%; height: 100%; position: fixed; background: #161616; top: 0; left: 0; z-index: 999; display: none;">
+    <style>
+        /* Контейнер для круга и цифры */
+        #countdownContainer {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+        }
+    
+        /* Стили для цифры внутри круга */
+        #countdown {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Анимация для окружности */
+        @keyframes countdownAnimation {
+            from {
+                stroke-dashoffset: 0; /* Конечное значение (окружность полностью усечена) */
+            }
+            to {
+                stroke-dashoffset: 283; /* Начальное значение (полная окружность) */
+            }
+        }
+
+        #progressCircle {
+            animation: countdownAnimation 5s linear forwards;
+        }
+    </style>
+    <div class="prepare_files_delete" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1001; display: flex; flex-direction: column; align-items: center;">
+        <p id="prepareFilesDeleteComment" style="font-size: 24px; margin-bottom: 20px;">Файлы удалены.</p>
+        <div id="countdownContainer">
+            <svg id="countdownCircle" width="100" height="100" viewBox="0 0 100 100">
+                <circle id="progressCircle" cx="50" cy="50" r="45" stroke="#737373" stroke-width="1" fill="transparent"
+                        stroke-dasharray="283" stroke-dashoffset="283" />
+            </svg>
+            <span id="countdown">5</span>
+        </div>
+    </div>
+</div>
+
+<script src="assets/js/custom.js"></script>
+<script>
+    // Скрываем сообщение, если JavaScript включен
+    document.addEventListener("DOMContentLoaded", function() {
+        var noscriptMessage = document.querySelector('.noscript-message');
+        if (noscriptMessage) {
+            noscriptMessage.style.display = 'none';
+        }
+    });
+</script>
+<script src="assets/js/custom.js"></script>
+<script src="assets/js/lang_changer.js"></script>
+<script type="text/javascript">
+const BYTES_IN_MB = 1048576;
+const FILE_SEQUENCE_NUMBER_REGEX = /\([0-9]+\)/g;
+let lastNow = new Date().getTime();
+let lastKBytes = 0;
+const pinCode = Math.floor(1000 + Math.random() * 9000); $('#pincodeVis').text(pinCode);
+
+let uploaded_link = "";
+let delete_link = "";
+let download_link = "";
+let catalogId = '';
+let fileQueue = [];
+let fileNames = [];
+let lang;
+const infinityDuration = 'infinity';
+let isCompressionEnabled = false;
+let isUploading = false;
+const exifElement = $('.air-header__exif');
+let successfulUploads = 0; // Counter for successful uploads
+/* Chunks state */
+const isChunked = true; // Disable/enable chunked upload
+let chunksLoadedSize = 0;
+let chunksState = {};
+/* Chunks state ends */
+let progressLastLoaded = 0; // Последний загруженный размер
+let progressPercent = 0; // Последний загруженный размер
+let visiblePercentLoaded = 0
+let progresssNow = 0
+let speed_value = 0
+const MAX_UPLOAD_ATTEMPTS = 7 * 24 * 60 * 60; // Максимальное количество попыток загрузки - 7 дней в секундах
+
+let isLoadFinishined = false
+
+let totalFilesSize = 0; // Общий размер всех файлов
+let totalFilesLoadedSize = 0; // Общий загруженный размер всех файлов
+let totalFilesLoadedPercent = Math.round((totalFilesLoadedSize / totalFilesSize) * 100); // Общий загруженный размер всех файлов
+
+const fileInput = document.getElementById('file_upload');
+const dragImage = document.getElementById('dragImage');
+const body = document.body; // Получаем элемент <body>
+
+// Функция для проверки, что файлы присутствуют
+function hasFiles(event) {
+    return event.dataTransfer.types.includes('Files');
+}
+
+// Обработчик события dragover
+body.addEventListener('dragover', (event) => {
+    event.preventDefault();
+
+    // Проверяем, есть ли файлы в событии
+    if (hasFiles(event)) {
+        dragImage.classList.add('dragover'); // Добавляем класс для изменения фона
+    }
+}, false);
+
+// Обработчик события dragleave
+body.addEventListener('dragleave', (event) => {
+    event.preventDefault();
+
+    // Убираем класс, когда мышь уходит из области
+    dragImage.classList.remove('dragover');
+}, false);
+
+// Добавляем переменную для контроля частоты событий
+let lastDropTime = 0;
+
+// Обработчик события drop
+body.addEventListener('drop', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    const currentTime = new Date().getTime();
+    if (currentTime - lastDropTime < 100) {
+        return;
+    }
+    lastDropTime = currentTime;
+
+    // Убираем класс dragover
+    dragImage.classList.remove('dragover');
+
+    // Получаем файлы
+    const files = Array.from(event.dataTransfer.files);
+    
+    if (files.length > 0) {
+        // Добавляем файлы в очередь
+        fileQueue = [...fileQueue, ...files];
+        
+        // Обновляем UI
+        updateFilesCountAndSize();
+        $(".upload_more_comment").fadeIn();
+
+        // Альтернативная установка файлов в input (если нужно)
+        try {
+            const dataTransfer = new DataTransfer();
+            fileQueue.forEach(file => dataTransfer.items.add(file));
+            fileInput.files = dataTransfer.files;
+            
+            // Триггерим кастомное событие
+            const changeEvent = new Event('files-added', { 
+                bubbles: true,
+                detail: { files: fileQueue }
+            });
+            fileInput.dispatchEvent(changeEvent);
+            
+        } catch (e) {
+            console.error('Error setting files:', e);
+        }
+    }
+}, false);
+
+if(getCookie('captcha')) $('#captchaBg').fadeOut(0)
+if(getCookie('deleted_catalog')){
+    new Toast({
+        title: false,
+        text: lang == 1 ? 'Каталог успешно удален!' : 'Catalog deleted successfully!',
+        theme: 'light',
+        autohide: true,
+        interval: 10000
+    });
+    setCookie('deleted_catalog', '', 0)
+}
+
+// добавлям файлы в очередь fileQueue, проверяем имена файлов на длину, вычисляем общий размер файлов, форматируем размер и обновляем интерфейс
+document.querySelector('input[id="file_upload"]').addEventListener('change', (e) => {
+    fileQueue = [...fileQueue, ...Array.from(e.target.files)];        
+    
+    let invalidFiles = [];
+    for (let i = 0; i < fileQueue.length; i++) {
+        if (fileQueue[i].name.length > MAX_FILENAME_LENGTH) {
+            invalidFiles.push(fileQueue[i].name);
+        }
+    }
+
+    if (invalidFiles.length > 0) {
+        alert(`Следующие файлы имеют слишком длинные имена:\n${invalidFiles.join('\n')}`);
+        invalidFiles=[]
+        fileQueue=[]
+        return;
+    }
+
+    $(".upload_more_comment").fadeIn()
+    totalFilesSize = fileQueue.reduce((total, file) => total + file.size, 0);    // Суммируем объем файлов в fileQueue
+
+    const { size, size_grade } = formatFileSize(totalFilesSize);    // Вычисляем размер и грейд
+
+    // Обновляем текст с общим размером файлов
+    $('#files_size').text(`${size.toFixed(1)} ${size_grade}`);
+    $('#files_count').text(fileQueue.length);
+    $('#text5').text(filesModify(fileQueue.length));
+
+    // Показываем плашку air-file__progress
+    $('#upload_div').prop("hidden", false);
+    $('#dragImage').prop("hidden", true);
+});
+
+function clearFileQueue() {
+  fileQueue = [];
+
+  const fileInput = document.querySelector('input[id="file_upload"]');
+  fileInput.value = '';
+
+    $('#upload_div').prop("hidden", true);
+    $('#dragImage').prop("hidden", false);
+}
+
+function sendFiles() {
+    if (fileQueue.length === 0) {
+        alert('Добавьте файлы для загрузки');
+        return;
+    }
+
+    if (!isUploading) {
+        uploadNextFile();
+        $('.send_files_text').css({'display':'none'})
+        $('.send_files_loader').fadeIn()
+        $('#sendFiles').attr('disabled', 'disabled');
+        $('#usePin').attr('disabled', 'disabled');
+        $('#descrOn').attr('disabled', 'disabled');
+        $('#refreshPin').off('click');
+        
+    }
+}
+
+function formatFileSize(sizeInBytes) {
+    let size = sizeInBytes;
+    let size_grade = "MB";
+
+    if (size < 100000) {
+        size_grade = "KB";
+        size /= 1000;
+    } else {
+        size /= BYTES_IN_MB;
+    }
+
+    if (size_grade === "MB" && size > 500) {
+        alert("Max 500 MB!");
+        return stopUpload();
+    }
+
+    return { size, size_grade };
+}
+
+
+const stringService = {
+    replaceLast: (string, substring, newSubstring) => {
+        const startIndex = string.lastIndexOf(substring);
+        const endIndex = startIndex + substring.length;
+        const result =
+            string.slice(0, startIndex) +
+            newSubstring +
+            string.slice(endIndex, string.length);
+
+        return result;
+    },
+};
+
+function changeFilename(file, name) {
+    return new File([file], name, {
+        type: file.type,
+        lastModified: file.lastModified,
+    })
+}
+
+function prepareFilename(names, name) {
+    let newName = name;
+    const ext = name.split('.').pop().toLowerCase(); // Добавляем расширение в ключ уникальности
+
+    if (names.some(existing => existing === newName)) {
+        const sequence = (name.match(FILE_SEQUENCE_NUMBER_REGEX) || []).at(-1);
+        
+        // Генерируем уникальное имя с учетом расширения
+        if (sequence) {
+            const sequenceNumber = Number(sequence.replaceAll(/[()]/g, ""));
+            newName = stringService.replaceLast(
+                newName,
+                sequence,
+                `(${sequenceNumber + 1})`
+            );
+        } else {
+            const base = name.slice(0, -(ext.length + 1));
+            newName = `${base}(1).${ext}`;
+        }
+        
+        // Рекурсивно проверяем новое имя
+        return prepareFilename(names, newName);
+    }
+    
+    return newName;
+}
+
+function createChunks(file, chunkSize) {
+    const chunks = [];
+    let start = 0;
+    while (start < file.size) {
+        let end = Math.min(start + chunkSize, file.size);
+        chunks.push(file.slice(start, end));
+        start = end;
+    }
+    return chunks;
+}
+
+async function uploadChunk(filename, index, retries = MAX_UPLOAD_ATTEMPTS, delay = 1000) {
+    const {
+        chunks, uploadedChunks, total, life, dirname, totalSize, nextFilename, attemptCount
+    } = chunksState[filename];
+    const chunk = chunks[index];
+    const formData = new FormData();
+    formData.append('chunk', chunk);
+    formData.append('filename', filename);
+    formData.append('chunk_index', index);
+    formData.append('total_chunks', total);
+    formData.append('safe', $('#saveLink').prop('checked'));
+    if (life) formData.append('life', `${life}`);
+    if (dirname) formData.append('dirname', dirname);
+    if ($('#usePin').prop('checked')) formData.append('pin', pinCode);
+
+    try {
+        const response = await fetch('/api/v2/upload_chunk/', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error(`Ошибка запроса: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        const newUploadedChunks = uploadedChunks + 1;
+        const preparedDirectoryId = data.dirname ? data.dirname : dirname;
+
+        chunksState[filename] = {
+            ...chunksState[filename],
+            uploadedChunks: newUploadedChunks,
+            attemptCount: 0, // Сброс счетчика попыток при успешной загрузке
+            loadedSize: chunksState[filename].loadedSize + chunk.size,
+        }
+        chunksLoadedSize = chunksLoadedSize + chunk.size;
+
+        // Обновляем прогресс
+        progressHandler({ loaded: chunk.size, total: totalSize }, chunksLoadedSize, totalSize);
+
+        if (newUploadedChunks === total) {
+            if (nextFilename) {
+                /* Begin to upload next file */
+                chunksState[nextFilename].dirname = preparedDirectoryId;
+                delete chunksState[nextFilename].life;
+                uploadChunk(nextFilename, 0);
+            } else {
+                /* Handle last chunk of last file */
+                completeChunksUpload(preparedDirectoryId);
+            }
+        } else if (index === 0) {
+            /* Handle first chunk */
+            chunksState[filename] = {
+                ...chunksState[filename],
+                dirname: data.dirname,
+            }
+            uploadChunk(filename, index + 1);
+        } else {
+            /* Handle all other chunks */
+            uploadChunk(filename, index + 1);
+        }
+    } catch (error) {
+        console.error(`Ошибка загрузки чанка ${index} файла ${filename}:`, error);
+
+        const newAttemptCount = attemptCount + 1;
+        chunksState[filename] = {
+            ...chunksState[filename],
+            attemptCount: newAttemptCount,
+        }
+
+        if (newAttemptCount === 3) {
+            failedAttempts.push({ filename, chunkIndex: index, errorMessage: error.message });
+            createBug(filename, index, error.message);
+        }
+
+        if (retries > 0) {
+            setTimeout(() => uploadChunk(filename, index, retries - 1, delay), delay);
+        } else {
+            alert(`${filename}: Не удалось загрузить чанк ${index}\nОшибка: ${error.message}`);
+
+            if (!catalogId) {
+                document.getElementById('upload_time').style.display = "flex";
+            }
+            stopUpload();
+        }
+    }
+}
+
+// Список неудачных попыток, которые достигли MAX_UPLOAD_ATTEMPTS
+const failedAttempts = [];
+
+// Обработчик события восстановления сети
+window.addEventListener('online', async () => {
+    if (failedAttempts.length > 0) {
+        console.log('Сеть восстановлена, отправляем баги...');
+        const attempt = failedAttempts[0];
+        await createBug(attempt.filename, attempt.chunkIndex, attempt.errorMessage);
+    }
+});
+
+let createBugId = 0;
+
+async function createBug(filename, chunkIndex, errorMessage, dir_id='-') {
+    const formData = new FormData();
+    formData.append('filename', filename);
+    formData.append('chunk_index', chunkIndex);
+    formData.append('error_message', errorMessage);
+    formData.append('dir_id', dir_id);
+    formData.append('title', 'Заголовок бага');
+    formData.append('description', 'Описание бага');
+
+    try {
+        const response = await fetch('/api/v2/bugs/create', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error(`Ошибка создания бага: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        createBugId = data.bug_id
+        console.log('Баг успешно создан:', data);
+
+    } catch (error) {
+        console.error('Ошибка при создании бага:', error);
+    }
+}
+
+async function updateBugDirId(bug_id, dir_id) {
+    const formData = new FormData();
+    formData.append('bug_id', bug_id);
+    formData.append('dir_id', dir_id);
+
+    try {
+        const response = await fetch('/api/v2/bugs/dir_id/', {
+            method: 'PUT',
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error(`Ошибка обновления dir_id в баге: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('Dir_id успешно обновлен в баге:', data);
+    } catch (error) {
+        console.error('Ошибка при обновлении dir_id в баге:', error);
+    }
+}
+
+
+function completeChunksUpload(directoryId) {
+    chunksLoadedSize = 0;
+    const uploadedFilenames = Object.keys(chunksState);
+    chunksState = {};
+    
+    completeUpload(directoryId, uploadedFilenames);
+}
+
+function deleteTempDir(directoryId) {
+    fetch(`/api/v2/delete_temp_dir/?dirname=${directoryId}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Ошибка запроса: ${response.status} ${response.statusText}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Временный каталог успешно удален:', data);
+    })
+    .catch(error => {
+        console.error('Ошибка удаления временного каталога:', error);
+    });
+}
+
+function completeUpload(directoryId, newFileNames) {
+    let link = directoryId;
+    let isFileAlone = false
+    let soloLink = ''
+
+    successfulUploads++;
+
+    link = catalogId ? catalogId : link.replaceAll('"', '');
+
+    // If all files are uploaded, call completeUpload
+    if (areAllFilesUploaded()) {
+        
+        (async function () {
+            try {
+                const response = await fetch(`/api/get_info?id=${directoryId}${$('#usePin').prop('checked') ? `&pin=${pinCode}` : ''}`);
+
+                const answer = await response.json();
+                if(answer.files_count>1){
+                    $('#text10-each, #eachList').fadeIn(0)
+                    answer.files.forEach(file => {
+                        console.log(file)
+                        const fileName = Object.keys(file)[0];
+                        const filePath = file[fileName];
+                        const realName = file['real_name'];
+                        const fullUrl = new URL(filePath, window.origin).href;
+
+                        const link = $(`<div class="each-link_wrap"><div class="air-section__download-link"><img src="assets/img/сopy-icon.png" alt="ссылка для скачивания" class="air-download-link__icon"><div class="air-download-link__url" onclick="copyEachLink('${fullUrl}')" style="user-select: all;"> <a onclick="copyEachLink('${fullUrl}') id="each_download_link">${fullUrl}</a></div><div onclick="copyEachLink('${fullUrl}')" class="air-download-link__copy">Скопировать</div> <a href="${fullUrl}" target='_blank' class="air-download-link__open"><svg fill="#ffffff" width="40" height="40" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">        <path d="M36.026,20.058l-21.092,0c-1.65,0 -2.989,1.339 -2.989,2.989l0,25.964c0,1.65 1.339,2.989 2.989,2.989l26.024,0c1.65,0 2.989,-1.339 2.989,-2.989l0,-20.953l3.999,0l0,21.948c0,3.308 -2.686,5.994 -5.995,5.995l-28.01,0c-3.309,0 -5.995,-2.687 -5.995,-5.995l0,-27.954c0,-3.309 2.686,-5.995 5.995,-5.995l22.085,0l0,4.001Z"></path>        <path d="M55.925,25.32l-4.005,0l0,-10.481l-27.894,27.893l-2.832,-2.832l27.895,-27.895l-10.484,0l0,-4.005l17.318,0l0.002,0.001l0,17.319Z"></path>    </svg></a></div><p class="w100p tac mt5 mb24 wsn toe oh">${realName}</p></div>`);
+
+                        $('#eachList').append(link);
+                    });
+                    download_link = `${window.origin}/get/${link}`;
+                    $('#download_link').html(`<a href="#" id="download_link">${window.origin}/get/${link}`);
+                    $('#open_download_link').attr('href', `get/${link}`);
+                }else if(answer.files_count==1){
+                    answer.files.forEach(file => {
+                        const fileName = Object.keys(file)[0];
+                        const filePath = file[fileName];
+                        const fullUrl = new URL(filePath, window.origin).href;
+                        const imageFormats = ['png', 'jpg', 'jpeg', 'webp', 'gif', 'bmp', 'svg'];
+                        if (fileName) {
+                            let format = fileName.split('.').pop().toLowerCase(); // Получаем расширение файла
+                            if (imageFormats.includes(format)) {
+                                soloLink = fullUrl
+                                download_link = soloLink;
+                                $('#download_link').html(`<a href="#" id="download_link">${soloLink}`);
+                                $('#open_download_link').attr({'href': `${soloLink}`, 'target': '_blank'});
+                                if (isRus()) {
+                                    $('#text10').text('Ссылка на файл:')
+                                }else if(lang_id == 2){
+                                    $('#text10').text('File link:')
+                                }
+                            } else {
+                                download_link = `${window.origin}/get/${link}`;
+                                $('#download_link').html(`<a href="#" id="download_link">${window.origin}/get/${link}`);
+                                $('#open_download_link').attr('href', `get/${link}`);
+                                if (isRus()) {
+                                    $('#text10').text('Ваша ссылка для скачивания:')
+                                }else if(lang_id == 2){
+                                    $('#text10').text('Your download link:')
+                                }
+                            }
+                        }
+                        });
+
+                }
+
+            } catch (error) {
+                console.error('Ошибка при загрузке данных:', error);
+            }
+        })();
+        // Если directoryId не пустой, обновляем directoryId в баге
+        if (directoryId !== '' && createBugId > 0) {
+            updateBugDirId(createBugId, directoryId);
+        }
+        // Отправка запроса на удаление временного каталога
+        deleteTempDir(directoryId);
+        exifElement.removeClass('air-header__exif_visible');
+        exifElement.addClass('air-header__exif_visible');
+        $('#load_time').text(`00:00:00`);
+        $('#progress_text').text(isRus() ? "ЗАГРУЖЕНО" : "UPLOADED");
+
+
+        setTimeout(function() {
+            exifElement.removeClass('air-header__exif_visible');
+        }, 3000)
+        /** Добавляем кнопку для дозагрузки файлов, после первой успешной загрузки */
+        if (!catalogId) {
+            $('#add-button').css('display', 'flex');
+            $('.air-file__upload-title').hide();
+        }
+
+        $('#final_section').prop('hidden', false);
+        $('#speed').prop('hidden', true);
+        $(".air-file__container").fadeOut(0)
+        $("#editorContainer").fadeOut(0)
+    }
+    
+    /** Добавляем успешно загруженные имена файлов */
+    fileNames.push(...newFileNames);
+
+    
+    setCookie(link, "delete");
+    setCookie('upload_link', link, 7);
+    $('#edit_link').html(`<a href="#" id="edit_link">${window.origin}/u/${link}</a>`);
+    $('#open_link').attr('href', `u/${link}`);
+    uploaded_link = `${window.origin}/u/${link}`;
+    $('#delete_link').html(`<a href="#" id="delete_link">${window.origin}/del/${link}`);
+    $('#open_delete_link').attr('data-href', `del/${link}`);
+    delete_link = `${window.origin}/del/${link}`;
+    if($('#usePin').prop('checked')){
+        $('#open_delete_link_withPinCode').attr('href', `${window.origin}/d/${link}`);
+        $('#open_delete_link_withPinCode').fadeIn();
+        $('#delete_link').html(`<a href="#" id="delete_link">${window.origin}/d/${link}`);
+        $('#open_delete_link').remove()
+        delete_link = `${window.origin}/d/${link}`;
+    }
+
+    
+    catalogId = link;
+        $('#delete_button').css("visibility", "visible");
+    stopUpload();
+
+    // Загрузка следующего файла
+    uploadNextFile();
+
+    // Отправка описания
+    if(!$('#description').prop('disabled')){
+        sendDescription(directoryId);
+    }
+}
+
+function sendDescription(directoryId) {
+    const description = document.getElementById('description').value;
+    const formattedText = description.replace(/\n/g, '\r\n');
+
+    const formData = new URLSearchParams();
+    formData.append('dirname', directoryId);
+    formData.append('description', encodeURIComponent(formattedText));
+
+    fetch('/api/v2/description/', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formData.toString(),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Ошибка запроса: ${response.status} ${response.statusText}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Описание успешно отправлено:', data);
+    })
+    .catch(error => {
+        console.error('Ошибка отправки описания:', error);
+    });
+}
+
+function deleteUploaded() {
+    var id = uploaded_link.split("/");
+    id = id[id.length - 1];
+    $.ajax({
+        url: `/api/delete_dir?id=${id}`,
+        method: 'get'
+    }).then((r) => {
+            // Показываем всплывающее окно
+            $('#prepareFilesDeleteBg').fadeIn(300);
+
+            // Устанавливаем начальное значение счетчика
+            let countdown = 5;
+            $('#countdown').text(countdown);
+
+            // Настройка анимации окружности
+            const circle = $('#progressCircle');
+            const radius = circle.attr('r');
+            const circumference = 2 * Math.PI * radius; // Длина окружности
+            circle.css('stroke-dasharray', circumference);
+            circle.css('stroke-dashoffset', circumference);
+
+            // Запускаем обратный отсчет
+            const interval = setInterval(function() {
+                countdown--;
+                $('#countdown').text(countdown);
+
+                // Обновляем анимацию окружности
+                const offset = circumference * (countdown / 5);
+                circle.css('stroke-dashoffset', offset);
+
+                // Когда отсчет завершен, перенаправляем пользователя
+        if (countdown <= 0) {
+            clearInterval(interval);
+        window.location.href = "/";
+        }
+    }, 1000);
+    }).catch(() => {
+        alert("Ошибка удаления!")
+    });
+}
+
+function copyEachLink(eachLink) {
+    navigator.clipboard.writeText(eachLink);
+    new Toast({
+        title: false,
+        text: lang == 1 ? 'Ссылка успешно скопирована!' : 'The link has been copied successfully!',
+        theme: 'light',
+        autohide: true,
+        interval: 10000
+    });
+}
+
+function copyEditLink() {
+    navigator.clipboard.writeText(uploaded_link);
+    new Toast({
+        title: false,
+        text: lang == 1 ? 'Ссылка успешно скопирована!' : 'The link has been copied successfully!',
+        theme: 'light',
+        autohide: true,
+        interval: 10000
+    });
+}
+
+function copyDownloadLink() {
+    navigator.clipboard.writeText(download_link);
+    new Toast({
+        title: false,
+        text: lang == 1 ? 'Ссылка успешно скопирована!' : 'The link has been copied successfully!',
+        theme: 'light',
+        autohide: true,
+        interval: 10000
+    });
+}
+
+function copyDeleteLink() {
+    navigator.clipboard.writeText(delete_link);
+    new Toast({
+        title: false,
+        text: lang == 1 ? 'Ссылка успешно скопирована!' : 'The link has been copied successfully!',
+        theme: 'light',
+        autohide: true,
+        interval: 10000
+    });
+}
+
+function copyPinLink() {
+    navigator.clipboard.writeText(pinCode);
+    new Toast({
+        title: false,
+        text: lang == 1 ? 'Пинкод успешно скопирован!' : 'Pincode copied successfully!',
+        theme: 'light',
+        autohide: true,
+        interval: 5000
+    });
+}
+
+
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+function stopUpload() {
+    isUploading = false;
+    uploadAttempts = 0; // Сброс счетчика попыток при остановке загрузки
+}
+
+function uploadNextFile() {
+    if (fileQueue.length > 0) {
+        const nextFile = fileQueue.shift();
+        
+        $('#delete_button').css("visibility", "hidden");
+        upload([nextFile]);
+    } else {
+            // Сбрасываем значения перед запросом на новую загрузку
+            chunksLoadedSize = 0;
+            totalFilesLoadedSize = 0;
+            progresssNow = 0;
+            speed_value = 0;
+        $('#delete_button').css("visibility", "visible");
+        stopUpload();
+    }
+}
+
+    let uploadAttempts = 0; // Счетчик попыток загрузки
+    let tryingToReloadUnchunckedFile = false;
+    const MAX_FILENAME_LENGTH = 100;
+
+function upload(files) {
+    try {
+        if(!tryingToReloadUnchunckedFile){
+            if (isUploading) {
+                return alert(isRus() ? 'Дождитесь изначальной загрузки' : 'Wait for initial upload')
+            }
+        }
+        tryingToReloadUnchunckedFile=false
+        isUploading = true;
+
+        if (fileQueue.length < 0) return stopUpload();
+        if (fileQueue.length > 30) {
+            alert("Max 30 files!")
+            fileQueue = []
+            return stopUpload();
+        }
+        if (fileQueue.length < 30) {
+        let life = +$('.slider-option.selected').attr('data-opt')
+        if (life === infinityDuration) {
+            const codeElement = $('#upload-pin');
+            const code = codeElement.val();
+
+            if (code !== '666666') {
+                $('.air-file__code-error').show();
+                codeElement.addClass('error');
+                return stopUpload();
+            } else {
+                $('.air-file__code-error').hide();
+                codeElement.removeClass('error');
+            }
+        }
+        let current_time = new Date().getTime();
+        if (life != infinityDuration) life = ((current_time / 1000) + (60 * 60 * 24 * 30 * life)).toString();
+
+        // Преобразуем life в дату
+        const lifeDate = new Date(life * 1000);
+        const lifeDateString = lifeDate.toLocaleString();
+
+        document.getElementById('upload_time').style.display = "none";
+
+        const formSent = new FormData()
+        const xhr = new XMLHttpRequest()
+        let size = 0;
+        let size_grade = "MB";
+        let sizeBytes = 0;
+        const newFileNames = [];
+        const chunkedFiles = [];
+        const nonChunkedFiles = [];
+
+        function onBeforeUpload() {
+            $('#speed').prop('hidden', false);
+            $('#dragImage').prop("hidden", true);
+            $('#upload_div').prop("hidden", false);
+            $('#file_upload').val('');
+        }
+
+        for (let i = 0; i != files.length; i++) {
+            let file = files[i];
+            size += file.size;
+            sizeBytes += file.size;
+            const preparedFilename = prepareFilename([...fileNames, ...newFileNames], file.name);
+            const preparedFile = changeFilename(file, preparedFilename);
+
+            if (isChunked && file.size > 1024 * 1024) { // Проверка размера файла
+                chunkedFiles.push(preparedFile);
+            } else {
+                nonChunkedFiles.push(preparedFile);
+            }
+            newFileNames.push(preparedFilename);
+        }
+
+        if (chunkedFiles.length > 0) {
+            /* Chunked upload */
+            const chunkSize = 1024 * 1024; // 1MB
+            let lastFilename = '';
+
+            chunkedFiles.forEach((preparedFile) => {
+                const chunks = createChunks(preparedFile, chunkSize);
+                const filename = preparedFile.name;
+
+                if (lastFilename) {
+                    chunksState[lastFilename].nextFilename = filename;
+                }
+                chunksState[filename] = {
+                    chunks,
+                    uploadedChunks: 0,
+                    total: chunks.length,
+                    retries: 3,
+                    totalSize: sizeBytes,
+                    loadedSize: 0,
+                }
+                if (catalogId) {
+                    chunksState[filename].dirname = catalogId;
+                } else {
+                    chunksState[filename].life = life;
+                }
+                lastFilename = filename;
+            })
+
+            onBeforeUpload();
+            uploadChunk(chunkedFiles[0].name, 0);
+        } else {
+            onBeforeUpload();
+
+            nonChunkedFiles.forEach((file) => {
+                formSent.append('files', file);
+            });
+
+            xhr.upload.addEventListener('progress', progressHandler, false);
+            xhr.open('POST', catalogId ? `/api/add_files?id=${catalogId}` : `/api/upload_file?life=${life}&compress=${isCompressionEnabled}&safe=${$('#saveLink').prop('checked')}${$('#usePin').prop('checked') ? `&pin=${pinCode}` : ''}`);
+            xhr.send(formSent);
+
+            xhr.onload = function () {
+                if (xhr.status != 200) {
+                    alert(`Ошибка ${xhr.status}: ${xhr.statusText}`);
+                    document.getElementById('upload_time').style.display = "flex";
+                    stopUpload();
+                } else {
+                    if(catalogId){
+                        completeUpload(catalogId, newFileNames);
+                    }else{
+                        completeUpload(JSON.parse(xhr.response).directory_name, newFileNames);
+                    }
+                }
+            };
+            // Обработка ошибок загрузки
+            xhr.onerror = function () {
+                console.error('Ошибка загрузки файла');
+                uploadAttempts++;
+                if (uploadAttempts < MAX_UPLOAD_ATTEMPTS) {
+                    setTimeout(() => {tryingToReloadUnchunckedFile=true;upload(files);}, 1000);
+                } else {
+                    alert('Превышено количество попыток загрузки. Пожалуйста, попробуйте позже.');
+                    stopUpload();
+                }
+                if (uploadAttempts === 3) {
+                    failedAttempts.push({ filename: nonChunkedFiles[0].name, chunkIndex: 0, errorMessage: 'Превышено количество попыток загрузки' });
+                    createBug(nonChunkedFiles[0].name, 0, 'Превышено количество попыток загрузки');
+                }
+            };
+        }
+    }} catch (e) {
+        stopUpload();
+        document.getElementById('upload_time').style.display = "flex";
+    }
+}
+
+function areAllFilesUploaded() {
+    // Проверяем, есть ли незагруженные чанки в chunksState
+    const hasPendingChunks = Object.values(chunksState).some(chunkState => chunkState.uploadedChunks < chunkState.total);
+
+    // Проверяем, есть ли файлы в очереди на загрузку
+    const hasPendingFilesInQueue = fileQueue.length > 0;
+
+    // Если нет незагруженных чанков и файлов в очереди, то все файлы загружены
+    return !hasPendingChunks && !hasPendingFilesInQueue;
+}
+
+function readableTime(unixtime) {
+    var date = new Date(unixtime * 1000);
+    var hours = date.getHours() - 3;
+    var minutes = "0" + date.getMinutes();
+    var seconds = "0" + date.getSeconds();
+    var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    return formattedTime;
+}
+
+function progressHandler(event, loaded = 0, total = 0) {
+    // Считаем размер загруженного и процент от полного размера
+    let preparedLoaded = event.loaded;
+
+    if (preparedLoaded < progressLastLoaded) preparedLoaded = progressLastLoaded;
+    progressLastLoaded = preparedLoaded;
+
+    const preparedTotal = Math.max(total, event.total);
+
+    if (preparedLoaded > preparedTotal) preparedLoaded = preparedTotal;
+    if (preparedLoaded === preparedTotal) progressLastLoaded = 0;
+    totalFilesLoadedSize += preparedLoaded
+    const percentLoaded = Math.round((totalFilesLoadedSize / totalFilesSize) * 100);
+    visiblePercentLoaded = Math.round(percentLoaded * .95).toFixed(2);
+    // Если percentLoaded больше 99, устанавливаем его на 99, пока не загрузится последний чанк
+    if (percentLoaded > 99) {
+        visiblePercentLoaded = 99;
+        if(areAllFilesUploaded()){
+            visiblePercentLoaded = 100
+            isLoadFinishined = true
+        }
+    }
+
+    progresssNow = new Date().getTime();
+    var bytes = preparedLoaded;
+    var kbytes = bytes / 1024;
+    var uploadedkBytes = kbytes;
+
+    if (uploadedkBytes < 0) {
+        uploadedkBytes = 0;  // Ensure no negative values
+    }
+    var elapsed = (progresssNow - lastNow) / 1000;
+    var kbps = elapsed ? uploadedkBytes / elapsed : 0;
+    var grade = "Kb/s";
+    speed_value = kbps;
+    var mbps = kbps / 1024;
+    if (mbps < 0) {
+        mbps = 0;  // Ensure no negative Mbps
+    }
+    if (kbps > 1000) {
+        grade = "Mb/s";
+        speed_value = mbps;
+    }
+
+    lastNow = progresssNow;
+
+    const leftTime = (100 - visiblePercentLoaded + 1) / kbps / 1024 / 100 * totalFilesSize;
+
+    $('#progress_value').css("width", `${visiblePercentLoaded}%`);
+    $('#progress_text').text(`${visiblePercentLoaded}%`);
+    if (!isNaN(leftTime) && leftTime > -Infinity && leftTime < Infinity) {
+        $('#load_time').text(`${readableTime(leftTime)}`);
+    }
+    $('#speed').text(`${speed_value.toFixed(1)} ${grade}`);
+}
+
+
+$('.air-file__compression-toggle').click((event) => {
+    isCompressionEnabled = !isCompressionEnabled;
+
+    compressionToggle.toggleClass('enabled');
+    $('.air-file__compression-toggle-text').text(lang===1?isCompressionEnabled ? 'Вкл' : 'Выкл' : isCompressionEnabled ? 'On' : 'Off');
+})
+
+$('#add-button').click(function (e) {
+    $('#upload_button').trigger("click");
+});
+
+let lastPasteTime = 0;
+
+window.addEventListener("paste", function (e) {
+    const currentTime = new Date().getTime();
+    if (currentTime - lastPasteTime < 100) {
+        // Если событие paste произошло слишком быстро после предыдущего, игнорируем его
+        return;
+    }
+    lastPasteTime = currentTime;
+
+    let files = [];
+    for (let i = 0; i < e.clipboardData.items.length; i++) {
+        let file = e.clipboardData.items[i].getAsFile();
+        if (file) {
+            files.push(file);
+        }
+    }
+
+    if (files.length > 0) {
+        fileQueue = [...fileQueue, ...files];
+        updateFilesCountAndSize();
+        $(".upload_more_comment").fadeIn()
+    }
+});
+
+function updateFilesCountAndSize() {
+    $('#files_count').text(fileQueue.length);
+
+    // Суммируем объем файлов в fileQueue
+    totalFilesSize = fileQueue.reduce((total, file) => total + file.size, 0);
+
+    // Вычисляем размер и грейд
+    const { size, size_grade } = formatFileSize(totalFilesSize);
+
+    // Обновляем текст с общим размером файлов
+    $('#files_size').text(`${size.toFixed(1)} ${size_grade}`);
+    $('#text5').text(filesModify(fileQueue.length));
+
+    // Показываем плашку air-file__progress
+    $('#upload_div').prop("hidden", false);
+    $('#dragImage').prop("hidden", true);
+}
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+
+$("#upload_button").click(function () {
+    $("#file_upload").click();
+});
+
+</script>
+<script src="captcha.js"></script>
+<script src="pincode.js"></script>
+</body>
+</html>
+
